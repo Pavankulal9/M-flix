@@ -1,0 +1,45 @@
+.loading, .movie {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width:100%
+}
+
+.movie {
+    background-position: 50%;
+    background-size: cover;
+    height:90vh
+}
+
+.movie > div {
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width:50%
+}
+
+.movie > div > div > h1 {
+    color: red;
+    font-size:2rem
+}
+
+.movie > div > div > button {
+    background-color: red;
+    color: white;
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+.movie > div > div > button:hover {
+    background-color: rgb(185, 38, 38);
+}
+
+@media only screen and (max-width: 600px) {
+    .movie > div {
+        width:80%
+    }
+}

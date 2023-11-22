@@ -1,0 +1,135 @@
+.header {
+    background-color: #4e4e4e;
+    justify-content: space-between;
+    padding: .5rem;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index:999
+}
+
+.header, .header > div {
+    align-items: center;
+    display:flex
+}
+
+.header > div {
+    gap:1rem
+}
+
+.header > div > svg {
+    color: #fff;
+    font-size:1rem
+}
+
+.header > div > a > h1 {
+    color:#fff
+}
+
+.header > form {
+    align-items: center;
+    background-color: #fff;
+    border-radius: 20px;
+    display: flex;
+    padding:.2rem .5rem
+}
+
+.header > form > input {
+    border: none;
+    border-radius: 20px;
+    font-size: .8rem;
+    outline: none;
+    padding:.5rem 1rem
+}
+
+.header > form > button {
+    background-color: transparent;
+    border:none
+}
+
+.header > form > button > svg {
+    font-size:1.2rem
+}
+
+.header > form > button:hover {
+    color:orange
+}
+
+.NavBar-Open {
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    transition: .5s;
+    width:300px
+}
+
+.NavBar-Open > a {
+    color: #fff;
+    margin-top: 1rem;
+    padding:.5rem 1rem
+}
+
+.NavBar-Open > svg {
+    color: #fff;
+    font-size: 1.3rem;
+    margin: .5rem;
+    position: absolute;
+    right:0
+}
+
+.NavBar-Close {
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    transition: .5s;
+    width:300px
+}
+
+.NavBar-Close > a {
+    color: #fff;
+    margin-top: 1rem;
+    padding:.5rem 1rem
+}
+
+.NavBar-Close > a:hover {
+    color:red
+}
+
+.NavBar-Close > svg {
+    color: #fff;
+    font-size: 1.3rem;
+    margin: .5rem;
+    position: absolute;
+    right:0
+}
+
+.NavBar-Close > svg:hover {
+    color:red
+}
+
+@media only screen and (max-width: 400px) {
+    .header > div > a > h1 {
+        font-size:1.2rem
+    }
+
+    .header > form {
+        width:45%
+    }
+
+    .header > form > input {
+        width:100%
+    }
+}

@@ -1,0 +1,42 @@
+.MoviesList, .footer {
+    padding: .5rem;
+    width:100%
+}
+
+.MoviesList {
+    background-color: #000;
+    display: grid;
+    place-items:center;
+    height: 95vh;
+    overflow-x: auto;
+}
+
+.MoviesList > h1 {
+    color: #fff;
+    margin-bottom:1rem
+}
+
+.MoviesList > button {
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    outline: none;
+    padding:.8rem 1rem
+}
+
+.MoviesList > button:hover {
+    background-color:#ad0303
+}
+
+.MoviesList > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+    width:95%;
+}
+
+.MoviesList > div > a {
+    padding:1rem
+}
