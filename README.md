@@ -47,7 +47,8 @@
   <img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702105528/M-Flix/menu_bar_xjybzt.png"/>
   <img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702105696/M-Flix/genres_a2yof2.png"/>
   <br/>
-- Add to My Favourite : 
+- Add to My Favourite :
+  <p>Would recomend one more movie you would love this!</p>
   <img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702105874/M-Flix/add_to_fav_zu8wwc.png"/>
   <img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702105980/M-Flix/my_favList_qjtqnh.png"/>
 
