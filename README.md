@@ -25,11 +25,31 @@
 - Movie API: TMDB
 
 ## Screenshots
-- Main Page
-<img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702097795/whether%20app/whetherApp_main_page_nugqz9.png"/>
+- Home Page
+<img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702104515/M-Flix/home_page_1_libb4e.png"/>
+<img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702104608/M-Flix/home_page_2_nhrlho.png"/>
+<img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702104619/M-Flix/home_page_3_gwinhj.png"/>
 
-- Searched a place: eg:Bangalore
-<img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702097807/whether%20app/whetherApp_demo_n4ejsl.png"/>
+- Movie Details Page:
+  <p>Would recommend to watch this movie! </p>
+  <img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702104938/M-Flix/movie_details_go5xkt.png"/>
+  <br/>
+
+- Search example:
+   <img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702105191/M-Flix/search_lc9hji.png"/>
+   <img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702105213/M-Flix/kantara_ejkwmc.png"/>
+   <br/>
+   
+- Menu Bar:
+   <img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702105528/M-Flix/menu_bar_xjybzt.png"/>
+
+- Genre section:
+  <img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702105528/M-Flix/menu_bar_xjybzt.png"/>
+  <img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702105696/M-Flix/genres_a2yof2.png"/>
+  <br/>
+- Add to My Favourite : 
+  <img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702105874/M-Flix/add_to_fav_zu8wwc.png"/>
+  <img src="https://res.cloudinary.com/dnh2skxdh/image/upload/v1702105980/M-Flix/my_favList_qjtqnh.png"/>
 
 ## License
 
