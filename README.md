@@ -56,6 +56,13 @@
 
 This project is licensed under the [MIT License](LICENSE).
 
+## Reference
+
+ if you want reference then you can watch is video[6_Pack_Programmer/netflix clone](https://www.youtube.com/watch?v=Y11HewNi3xc).
+ (!note: i did not copy all the code changed lot of thing). 
+ Added react query by refering this video[Web_Dev_simplified/netflix clone](https://www.youtube.com/watch?v=r8Dg0KVnfMA).
+ 
+
 ## Contact
 
 - [pavan] - [pawankulal9@gmail.com]
