@@ -1,7 +1,7 @@
 @mixin loadingScree(){
     background-color:$primary-background-color;
     @include height-width-Setter();
-    @include flexBox(center,center);
+    @include flexBox();
     color: $primary-text-color;
     > div{
      @include height-width-Setter(50px,50px);

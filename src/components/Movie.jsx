@@ -81,7 +81,7 @@ const Movie = ({id}) => {
            <p>Release Date: <strong>{Movie.release_date}</strong></p>
            <p >Status: <span style={{color:Movie.status==='Released'?'greenyellow':'red'}}> {Movie?.status}</span></p>
           </div>
-          <div>
+          <div className='button'>
            {
             favourite.length < 0?
             <button onClick={()=> addToFavouriteHandler(Movie)}>Add as favourite</button>

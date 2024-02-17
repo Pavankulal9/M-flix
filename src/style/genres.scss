@@ -7,7 +7,7 @@
         display: flex;
         > .genre-list {
             @include height-width-Setter(18%,100%);
-            @include flexBox(center,start,0rem,column);
+            @include flexBox(center,flex-start,0rem,column);
             overflow-x: auto;
             @include scrollBar();
             > button {

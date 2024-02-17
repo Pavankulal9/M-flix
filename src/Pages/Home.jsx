@@ -6,7 +6,7 @@ import Error from "./Error";
 import { MovieContext } from "../utils/context";
 import Movie from "../components/Movie";
 import Banner from "../components/Banner";
-const  MoviesList = React.lazy(()=> import("../components/MoviesList"));
+import MoviesList from "../components/MoviesList";
 const Home = () => {
   const {selectedMovie}=useContext(MovieContext);
   

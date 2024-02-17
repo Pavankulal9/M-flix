@@ -38,7 +38,7 @@
                 bottom: 5%;
                 left: 0;
                 background: rgba(15, 15, 15, 0.335);
-                @include flexBox(start,end,0.5rem,column);
+                @include flexBox(flex-start,flex-end,0.5rem,column);
                 padding:0 2rem;
                 > h1 {
                     @include height-width-Setter(70%,auto);
