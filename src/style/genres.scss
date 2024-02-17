@@ -1,0 +1,61 @@
+.genre-body {
+    @include height-width-Setter(100%,90%,10px 0);
+    @include flexBox(center,none,0rem,column);
+    background: $primary-background-color;
+    >.genre-container {
+        @include height-width-Setter(auto,100%,0.5rem);
+        display: flex;
+        > .genre-list {
+            @include height-width-Setter(18%,100%);
+            @include flexBox(center,start,0rem,column);
+            overflow-x: auto;
+            @include scrollBar();
+            > button {
+                width:100%;
+                @include ButtonSytles(30px,none,0.7rem 1rem,$primary-text-color,none,0.6rem 0);
+                font-weight: 500;
+                @include ButtonHover($button-background-color);
+            }
+        }
+        >.MoviesList{
+          @include height-width-Setter(85%,100%);
+          > div{
+            @include height-width-Setter(95%,auto);
+          }
+        }
+    }
+}
+
+
+@media only screen and (max-width: 730px) {
+    .genre-body{
+        > .genre-container{
+            >.genre-list{
+                width:30%;
+                > button {
+                    font-size: 0.7rem;
+                    font-weight: bold;
+                }
+            }
+            >.MoviesList{
+                width: 70%;
+              }
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .genre-body{
+        > .genre-container{
+            >.genre-list{
+                width:35%;
+                > button {
+                    font-size: 0.5rem;
+                }
+            }
+            >.MoviesList{
+                width: 65%;
+            }
+        }
+    }
+}

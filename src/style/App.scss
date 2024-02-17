@@ -1,0 +1,46 @@
+@import url(https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&family=Roboto:wght@300;400;500;700;900&display=swap);
+@import "mixins.scss";
+@import "colors.scss";
+@import "home.scss";
+@import "genres.scss";
+@import "movie.scss";
+@import "search.scss";
+@import "moviesList.scss";
+@import "header.scss";
+@import "footer.scss";
+
+* {
+    box-sizing: border-box;
+    font-family: Open Sans, sans-serif;
+    margin: 0;
+    padding:0
+}
+
+a{
+    color: $primary-background-color;
+    text-decoration:none
+}
+body{
+    background-color: $primary-background-color;
+    @include scrollBar();
+}
+
+.app{
+    @include height-width-Setter(100%,95vh);
+    background-color:$primary-background-color;
+    @include scrollBar();
+}
+
+.loading {
+  @include loadingScree();
+}
+
+.error{
+    @include loadingScree();
+}
+
+@media (max-width: 600px){
+    .app{
+        @include height-width-Setter(100%,95svh);
+    }
+}

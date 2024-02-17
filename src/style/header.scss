@@ -1,0 +1,63 @@
+.header {
+    @include height-width-Setter(100%,8%,0 0.5rem);
+    background-color: $secondary-background-color;
+    @include flexBox(center,space-between);
+    z-index:999;
+    > div {
+        @include flexBox(center,none,1rem);
+        > svg {
+            color: $primary-text-color;
+            font-size:1rem;
+        }
+        > a > h1 {
+            color:$primary-text-color;
+        }
+    } 
+    > form {
+        @include flexBox(center,none);
+        background-color: $primary-text-color;
+        border-radius: 20px;
+        padding:.2rem .5rem;
+        > input {
+            border: none;
+            border-radius: 20px;
+            font-size: .8rem;
+            outline: none;
+            padding:.5rem 1rem;
+        }
+        > button {
+            background-color: transparent;
+            border:none;
+            > svg {
+                font-size:1.2rem
+            }
+            &:hover {
+                color:orange;
+            }
+        }
+    }   
+}
+
+
+.NavBar-Open {
+   @include NavBar(0);
+}
+
+.NavBar-Close {
+   @include NavBar();
+}
+
+
+@media only screen and (max-width: 500px) {
+    .header > div > a > h1 {
+        font-size:1.5rem;
+    }
+
+    .header > form {
+        @include height-width-Setter(45%,auto);
+    }
+
+    .header > form > input {
+        @include height-width-Setter(100%,auto,0.3rem);
+    }
+}

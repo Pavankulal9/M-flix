@@ -1,0 +1,76 @@
+.search {
+    @include height-width-Setter(100%,90%,1rem 0);
+    @include flexBox(center,none,0rem,column);
+    background-color: $primary-background-color;
+    background-blend-mode: multiply;
+    color: $primary-text-color;
+    overflow-x: auto;
+    @include scrollBar();
+    > div {
+        @include height-width-Setter(95%,auto,0.5rem 1rem);
+        @include flexBox(none,none,1rem);
+        margin: .5rem auto;
+        transition: .5s;
+        border-radius: 15px;
+        >.movie-poster{
+            @include height-width-Setter(20%,auto);
+            @include flexBox();
+            > img {
+                @include height-width-Setter();
+                object-fit: cover;
+                border-radius: 5px;
+            }
+            > .loading{
+                @include height-width-Setter();
+            }
+        }
+        > aside {
+            @include height-width-Setter(80%,auto);
+            padding:.2rem .5rem;
+            > p{
+                color: $secondary-text-color;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 4;
+                -webkit-box-orient: vertical;
+            }
+        }
+        &:hover {
+            box-shadow: 4px 0 10px 2px hsla(0, 0%, 100%, .863);
+            -webkit-transform: scale(1.01);
+            transform:scale(1.01)
+        }        
+    }
+    .button {
+        @include flexBox(none,none,1rem);
+        > button {
+            @include ButtonSytles(5px,$button-background-color,0.5rem,$primary-text-color,0.8rem,1rem);
+            @include flexBox(center,none);
+            > svg {
+                font-size:1rem
+            }
+            @include ButtonHover($button-hover-background-color);
+        }
+    }
+}
+
+
+
+
+@media only screen and (max-width: 600px) {
+    .search > div {
+        @include height-width-Setter(80%,auto);
+        flex-direction:column;
+        align-items: center
+    }
+
+    .search > div > .movie-poster{
+        @include height-width-Setter(100%,100%);
+    }
+
+    .search > div > aside {
+            display:none;
+    }
+}
+

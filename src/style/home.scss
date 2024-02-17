@@ -1,0 +1,157 @@
+.home {
+   @include height-width-Setter(100%,90%);
+   overflow-x: auto;
+   background-color:$primary-background-color;
+   @include scrollBar();
+    .banner_box{
+        @include height-width-Setter(100%,90%);
+        @include flexBox();
+       > .banner{
+            position: relative;
+            @include height-width-Setter(98%,95%);
+            color: $primary-text-color;
+            >.prev-banner{
+                position: absolute;
+                top:0;
+                left: 0;
+                z-index: 999;
+                @include height-width-Setter(8%,80%);
+            }
+            >.next-banner{
+                position: absolute;
+                top:0;
+                right:0;
+                z-index: 999;
+                @include height-width-Setter(10%,100%);
+            }
+            >.hidden{
+                display: none;
+            }
+            > img{
+                @include height-width-Setter();
+                object-fit: cover;
+                border-radius: 20px;
+            }
+            > .movie-details {
+                position: absolute;
+                @include height-width-Setter(100%,95%);
+                bottom: 5%;
+                left: 0;
+                background: rgba(15, 15, 15, 0.335);
+                @include flexBox(start,end,0.5rem,column);
+                padding:0 2rem;
+                > h1 {
+                    @include height-width-Setter(70%,auto);
+                    color: $primary-text-color;
+                    font-size:2rem;
+                }
+                >p{
+                    @include height-width-Setter(70%,auto);
+                    color: $secondary-text-color;
+                }
+                > div {
+                    padding:1rem 0;
+                    > button{
+                        @include ButtonSytles(10px,$button-background-color,0.5rem 2rem,$primary-text-color,1rem);
+                        @include ButtonHover($button-hover-background-color);
+                    }
+                }
+            }
+            > .carosel{
+                position: absolute;
+                bottom: 0;
+                background: rgba(15, 15, 15, 0.335);
+                @include height-width-Setter(100%,5%);
+                @include flexBox(center,center,0.5rem);
+                > .unSelected{
+                    @include height-width-Setter(10px,10px);
+                    background-color: $secondary-text-color;
+                    border-radius: 50%;
+                }
+                > .selected{
+                    @include height-width-Setter(10px,10px);
+                    background-color: $button-background-color;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+
+    > .MoviesListRow{
+        @include height-width-Setter(100%,auto,0.5rem);
+        display: grid;
+        place-items:left;
+        overflow-x: auto;
+        @include scrollBar();
+    > h1 {
+        color: $primary-text-color;
+        margin-bottom:1rem
+    }
+    > div {
+        @include height-width-Setter(100%,auto);
+        @include flexBox(none,center,0.5rem);
+        > .card {
+              @include height-width-Setter(170px,270px);
+              border-radius: 5px;
+               > img {
+                @include height-width-Setter();
+                object-fit: cover;
+                border-radius: 5px;
+              }
+              > .loading{
+                @include loadingScree();
+              }
+        }  
+    }
+  }
+}
+
+@media(max-width:700px){
+    .home{
+        > .banner_box{
+            >.banner{
+                >.prev-banner{
+                    @include height-width-Setter(20%,80%);
+                }
+                >.next-banner{
+                    @include height-width-Setter(20%,100%);
+                }
+                > .movie-details {
+                    width: 100%;
+                    bottom: 5%;
+                    > h1 {
+                        font-size:1.5rem;
+                    }
+                    >p{
+                        width: 100%;
+                        color: $secondary-text-color;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 4;
+                        -webkit-box-orient: vertical;
+                    }
+                    > div {
+                        > button{
+                            @include ButtonSytles(10px,$button-background-color,0.5rem 1rem,$primary-text-color,0.8rem);
+                        }
+                    }
+                }
+                > .carosel{
+                    
+                    > .unSelected{
+                        @include height-width-Setter(8px,8px);
+                    }
+                    > .selected{
+                        @include height-width-Setter(8px,8px);
+                    }
+                }
+              }
+            }
+        }
+    }
+    
+
+    
+ 
+

@@ -1,0 +1,57 @@
+.movie-categorie{
+    @include height-width-Setter(100%,90%);
+}
+
+.MoviesList{
+    @include height-width-Setter(100%,100%,0.5rem);
+    background-color: $primary-background-color;
+    @include flexBox(center,none,0.5rem,column);
+    overflow-x: auto;
+    @include scrollBar();
+    > h1 {
+        text-transform: uppercase;
+        color: $primary-text-color;
+        margin-bottom:1rem
+    }
+    > button {
+        @include ButtonSytles(10px,$button-background-color,0.8rem 5rem, $primary-text-color);
+        text-transform: uppercase;
+        @include ButtonHover($button-hover-background-color);
+    }
+    > div {
+        @include height-width-Setter(80%,auto);
+        @include flexBox(none,center);
+        flex-wrap: wrap;
+        margin: auto;
+         > p{
+           color: $button-background-color;
+           font-size: 1.5rem;
+        }
+        > .card {
+            @include height-width-Setter(200px,300px,1rem);
+            border-radius: 5px;
+               > img {
+                @include height-width-Setter();
+                object-fit: cover;
+                border-radius: 5px;
+              }
+              > .loading{
+                @include loadingScree();
+              }
+        }  
+    }
+}
+
+
+
+
+@media(max-width:450px){
+    .MoviesList{
+        div{
+         width: 95%;
+         > .card{
+            @include height-width-Setter(170px,250px);
+         }
+        }
+    }
+}

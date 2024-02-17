@@ -1,0 +1,106 @@
+.movie {
+    position: absolute;
+    top: 7%;
+    @include height-width-Setter(100%,87%);
+    backdrop-filter: blur(0.5rem);
+    @include flexBox();
+    >.movie-box{
+        @include height-width-Setter(95%,95%);
+        background-position: 50%;
+        background-size: cover;
+        border-radius: 10px;
+        @include flexBox();
+        box-shadow: 1px 1px 15px 4px hsla(0, 0%, 100%, .863);
+        > div {
+            @include height-width-Setter(90%,80%);
+            color: $primary-text-color;
+            @include flexBox(center,center,1rem);
+            .movie-poster{
+                @include height-width-Setter(30%,300px);
+                @include flexBox();
+                border-radius: 5px;
+                > img {
+                    @include height-width-Setter(200px,300px);
+                    object-fit: cover;
+                    border-radius: 10px;
+                }
+                > .loading{
+                    @include loadingScree();
+                }
+            }
+            .movie-description{
+                @include height-width-Setter(70%,auto);
+                @include flexBox(none,none,0.5rem,column);
+                > p{
+                 padding-left: 0.5rem;
+                 color: $secondary-text-color;
+                 > span{
+                   font-weight: bold;
+                   > svg{
+                    color: gold;
+                   }
+                 }
+                }
+                > .movie-title{
+                    > h1 {
+                        color: $primary-text-color;
+                        font-size:2rem;
+                        text-transform: uppercase;
+                    }  
+                } 
+                > .movie-details{
+                    @include flexBox(start,none,0.5rem,column);
+                    > div{
+                        @include flexBox(center,start,1rem);
+                        > p{
+                           color:  $secondary-text-color;
+                           > strong{
+                            color: $primary-text-color;
+                           } 
+                        }
+                        > button {
+                            @include ButtonSytles(10px,$button-background-color,0.5rem,$primary-text-color,1rem,0.5rem);
+                            @include ButtonHover($button-hover-background-color);
+                            text-transform: capitalize;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+
+
+@media only screen and (max-width: 750px) {
+    .movie {
+        > .movie-box{
+            > div {
+                @include height-width-Setter(100%,99%);
+                flex-direction: column;
+                align-items:center;
+                overflow-y: auto;
+                @include scrollBar();
+                > .movie-poster{
+                    @include height-width-Setter(100%,auto);
+                    > img{
+                        @include height-width-Setter(150px,250px);
+                    }
+                }
+                > .movie-description{
+                    @include height-width-Setter(100%,50%,0 0.4rem);
+
+                    > .movie-details{
+                        width: 100%;
+                    }
+                    > .movie-title{
+                        > h1 {
+                            font-size:1.5rem;
+                        }  
+                    } 
+                }
+            }
+        }
+    }
+}
