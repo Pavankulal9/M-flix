@@ -15,13 +15,17 @@ const Banner = ({Popular}) => {
 
     useEffect(()=>{
         const timer = setTimeout(()=>{
-            nextBanner();
+          if(backgroundImage >= 9){
+            setBackgroundImage(0);
+            }else{
+            setBackgroundImage((prev)=> prev+1);
+            }
         },5000)
         
         return ()=>{
         clearTimeout(timer);
         }
-    },[backgroundImage]);
+    },[backgroundImage]) 
 
     const nextBanner =()=>{
         if(backgroundImage >= 9){

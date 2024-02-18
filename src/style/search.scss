@@ -13,7 +13,7 @@
         transition: .5s;
         border-radius: 15px;
         >.movie-poster{
-            @include height-width-Setter(20%,auto);
+            @include height-width-Setter(15%,auto);
             @include flexBox();
             > img {
                 @include height-width-Setter();
