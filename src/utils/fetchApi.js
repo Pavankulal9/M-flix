@@ -30,9 +30,11 @@ export const fetchMovieList=async(category,page)=>{
     }
 };
 
-export const fetchSearch=async(searchTerm,page)=>{
+export const fetchSearch=async(searchTerm,page,abortContorller)=>{
+    abortContorller.currnet?.abort();
+    abortContorller.current = new AbortController();
     try {
-        const {data}= await axios.get(`${BASE_URL}/search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${searchTerm}&language=india&page=${page}`);
+        const {data}= await axios.get(`${BASE_URL}/search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${searchTerm}&language=india&page=${page}`,{signal: abortContorller.current?.signal});
         return data;
     } catch (error) {
         console.log(error.message);

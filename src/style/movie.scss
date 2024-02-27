@@ -9,7 +9,7 @@
         @include height-width-Setter(95%,95%);
         background-position: 50%;
         background-size: cover;
-        border-radius: 10px;
+        border-radius: 20px;
         @include flexBox();
         box-shadow: 1px 1px 15px 4px hsla(0, 0%, 100%, .863);
         > div {

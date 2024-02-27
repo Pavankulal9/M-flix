@@ -14,31 +14,29 @@ const Upcoming = () => {
    
     const loadMoreHandle=()=>{
       setPage((prev)=> prev + 1);
-     refetch();
-     setUpcomingMovieList((prev)=> [...prev,...UpcomingList]);
    }
   
-    const { isLoading,isError,error ,data: UpcomingList,refetch} = useQuery({
-        queryKey: ["UpcomingList"],
+    const { isLoading,isError,error} = useQuery({
+        queryKey: ["UpcomingList",`${page}`],
         queryFn: () =>
           fetchMovieList("upcoming",`${page}`).then((res) => {
               if(page===1){
                   setUpcomingMovieList(res.results);
-                  setPage(2);
+              }else{
+                 setUpcomingMovieList((prev)=> [...prev,...res.results]);
               }
-            return res.results;
+              return res.results;
           }),
       });
   
      
       useEffect(()=>{
-        refetch();
         return ()=>{
           setSelectedMovie("");
         }
-      },[refetch,page,setSelectedMovie]);
+      },[setSelectedMovie]);
   
-      if (isLoading) {
+      if (isLoading&&UpcomingMovieList.length < 0) {
         return (
           <Loading type={'text'}/>
         );

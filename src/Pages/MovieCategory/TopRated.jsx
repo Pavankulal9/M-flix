@@ -14,17 +14,16 @@ const TopRated = () => {
  
   const loadMoreHandle=()=>{
    setPage((prev)=> prev + 1);
-   refetch();
-   setTopRatedMovieList((prev)=> [...prev,...TopratedList]);
  }
 
-  const { isLoading,isError,error ,data: TopratedList,refetch} = useQuery({
-      queryKey: ["TopratedList"],
+  const { isLoading,isError,error} = useQuery({
+      queryKey: ["TopratedList",`${page}`],
       queryFn: () =>
         fetchMovieList("top_rated",`${page}`).then((res) => {
             if(page===1){
                 setTopRatedMovieList(res.results);
-                setPage(2);
+            }else{
+              setTopRatedMovieList((prev)=> [...prev,...res.results]);
             }
             return  res.results;
         }),
@@ -33,13 +32,12 @@ const TopRated = () => {
    
 
     useEffect(()=>{
-      refetch();
       return ()=>{
         setSelectedMovie("");
       }
-    },[refetch,page,setSelectedMovie]);
+    },[setSelectedMovie]);
 
-    if (isLoading) {
+    if (isLoading&&TopRatedMovieList.length < 0) {
       return (
         <Loading type={'text'}/>
       );
@@ -53,7 +51,7 @@ return (
     {
           selectedMovie.length > 0 && 
          <Movie id={selectedMovie}/> 
-        }
+      }
     <MoviesList MoviesListArray={TopRatedMovieList} loadMoreHandle={loadMoreHandle} title={'Top-Rated Movies'}/>
   </div>
 )

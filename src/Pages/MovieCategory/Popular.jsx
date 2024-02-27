@@ -14,37 +14,31 @@ const Popular = () => {
    
     const loadMoreHandle=()=>{
      setPage((prev)=> {
-      return prev += 1;
+      return prev + 1;
      });
-     refetch();
-     setPopularMovieList((prev)=> [...prev,...PopularList]);
    }
   
-    const { isLoading,isError,error ,data: PopularList,refetch} = useQuery({
-        queryKey: ["PopularList"],
+    const { isLoading,isError,error } = useQuery({
+        queryKey: ["PopularList",`${page}`],
         queryFn: () =>
           fetchMovieList("popular",`${page}`).then((res) => {
             if(page===1){
               setPopularMovieList(res.results);
-              setPage(2);
+            }else{
+              setPopularMovieList((prev)=> [...prev,...res.results]);
             }
             return res.results;
           }),
       });
 
-      useEffect(()=>{
-       
-      },[])
-
      
       useEffect(()=>{
-        refetch();
         return ()=>{
           setSelectedMovie("");
         }
-      },[refetch,page,setSelectedMovie]);
+      },[setSelectedMovie]);
 
-      if (isLoading) {
+      if (isLoading&&popularMovieList.length < 0) {
         return (
           <Loading type={'text'}/>
         );
@@ -59,9 +53,9 @@ const Popular = () => {
           selectedMovie.length > 0 && 
          <Movie id={selectedMovie}/> 
         }
-      <MoviesList MoviesListArray={popularMovieList} loadMoreHandle={loadMoreHandle} title={'Popular Movies'}/>
+      <MoviesList MoviesListArray={popularMovieList} loadMoreHandle={loadMoreHandle} title={'Popular Movies'} />
     </div>
   )
 }
 
-export default Popular
+export default Popular;

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom'
 import { Img_URL, fetchSearch } from '../utils/fetchApi';
@@ -13,32 +13,29 @@ const Search = () => {
   const {selectedMovie,setSelectedMovie}=useContext(MovieContext);
   const {searchTerm} = useParams();
   const [page,setPage]= useState(1);
+  const abortController = useRef(null);
 
   useEffect(()=>{
     setPage(1);
   },[searchTerm]);
   
-  const {isLoading,isError,error,data:searchItem,refetch}=useQuery({
-    queryKey:['searchItem'],
-    queryFn: ()=> fetchSearch(`${searchTerm}`,`${page}`)
-    .then((res)=>{
-        return res.results;
-      }),
+  const {isLoading,isError,error,data:searchItem}=useQuery({
+    queryKey:['searchItem',`${page}`,`${searchTerm}`],
+    queryFn: ()=>
+      fetchSearch(`${searchTerm}`,`${page}`,abortController)
+      .then((res)=>{
+          return res.results;
+      })
     })
   
-    useEffect(()=>{
-      refetch();
-    },[refetch,isLoading,searchTerm,page])
-    
+
     const nextPageHandler =()=>{
         setPage((prev)=> prev+1);
-        refetch();
     }
     
     const prevPageHandler =()=>{
       if(page > 1){
         setPage((prev)=> prev-1);
-        refetch();
       }
     }
     
@@ -54,6 +51,12 @@ const Search = () => {
 
   return (
     <section className='search'>
+      {
+
+      searchItem === undefined?
+      <Error error={'SeverError Please try later'}/>
+      :
+      <>
       {
           searchItem[0]==null&& page > 1 ? <h2>No More Content Available!!!</h2>: ""
        } 
@@ -84,10 +87,12 @@ const Search = () => {
       
       {
        searchItem[0]==null ?
-      ''
+        null
       : <button onClick={()=> nextPageHandler()}>Next<FiArrowRight/></button>
       }
       </span>
+      </>
+      }
       
     </section>
   )

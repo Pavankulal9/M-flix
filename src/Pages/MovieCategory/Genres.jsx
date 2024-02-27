@@ -24,23 +24,21 @@ const Genres = () => {
    setPage((prev)=> {
     return prev=prev + 1;
    });
-   setGenresList((prev)=> [...prev,...GenreList]);
-   refetch();
  }
 
  const selectGenreHandler =(e)=>{
   setGenreId(+e.target.value); 
-  setGenresList(GenreList); 
   setPage(1);
  }
 
-  const { isLoading,isError,error ,data: GenreList,refetch} = useQuery({
-      queryKey: ["GenreList"],
+  const { isLoading,isError,error} = useQuery({
+      queryKey: ["GenreList",`${genreId}`,`${page}`],
       queryFn: () =>
         fetchGenreList(`${genreId}`,`${page}`).then((res) => {
           if(page===1){
-            setGenresList(res.results);
-            setPage(2);
+           setGenresList(res.results);
+          }else{
+            setGenresList((prev)=> [...prev,...res.results]);
           }
           return res.results;
         }),
@@ -55,11 +53,7 @@ const Genres = () => {
     });
    
 
-    useEffect(()=>{
-      refetch();
-    },[refetch,page,genreId]);
-
-    if (isLoading) {
+    if (isLoading&&GenresList.length < 0) {
       return (
        <Loading type={'text'}/>
       );

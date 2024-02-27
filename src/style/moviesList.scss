@@ -45,12 +45,29 @@
 
 
 
-@media(max-width:450px){
+@media(max-width:515px){
     .MoviesList{
+        > h1{
+            font-size: 1.5em;
+        }
         div{
          width: 95%;
          > .card{
             @include height-width-Setter(170px,250px);
+         }
+        }
+    }
+}
+
+@media(max-width:365px){
+    .MoviesList{
+        > h1{
+            font-size: 1.5rem;
+        }
+        div{
+         width: 95%;
+         > .card{
+            @include height-width-Setter(140px,210px);
          }
         }
     }
