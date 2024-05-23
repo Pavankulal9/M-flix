@@ -1,16 +1,13 @@
 import React from 'react'
 
 const AddRemoveButton = ({favourite,movie,addToFavouriteHandler,removeFromFavourite}) => {
-    const checkMovie = favourite.filter((m)=> m.id === movie.id);
+    const checkMovie = favourite.find((m)=> m.id === movie.id);
   return (
-    checkMovie.length === 0?  
-    <button key={movie.id} onClick={()=> addToFavouriteHandler(movie)}>Add as favourite</button>
+    checkMovie?  
+    <button key={movie.id} onClick={(e)=> removeFromFavourite(e,movie)}>Remove From favourite</button>
     :
-    checkMovie.map((movie)=>(
-    <>
-               <button key={movie.id} onClick={()=> removeFromFavourite(movie)}>Remove From favourite</button>
-    </>
-   )))
+    <button key={movie.id} onClick={(e)=> addToFavouriteHandler(e,movie)}>Add as favourite</button>
+   )
 }
 
 export default AddRemoveButton;

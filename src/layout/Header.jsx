@@ -15,6 +15,7 @@ const Header = () => {
         navigate(`/search/${searchTerm}`);
         setSearchTerm('');
     }
+    
   return (
     <div className='header'>
       <ul className={showNavBar ?'NavBar-Open':'NavBar-Close'}>

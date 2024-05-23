@@ -19,7 +19,7 @@ const Search = () => {
     setPage(1);
   },[searchTerm]);
   
-  const {isLoading,isError,error,data:searchItem}=useQuery({
+  const {isLoading,isError,data:searchItem}=useQuery({
     queryKey:['searchItem',`${page}`,`${searchTerm}`],
     queryFn: ()=>
       fetchSearch(`${searchTerm}`,`${page}`,abortController)
@@ -45,7 +45,7 @@ const Search = () => {
     );
   } else if (isError) {
     return (
-     <Error error={error.message}/>
+     <Error/>
     );
   }
 

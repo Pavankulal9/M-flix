@@ -25,6 +25,7 @@ const Banner = ({Popular}) => {
         return ()=>{
         clearTimeout(timer);
         }
+        
     },[backgroundImage]) 
 
     const nextBanner =()=>{
@@ -50,7 +51,7 @@ const Banner = ({Popular}) => {
           className="banner"
          >
           {
-            Popular.slice(0,10).map((movie,i)=>(
+            Popular.map((movie,i)=>(
               <img  key={movie.id} className={i !== backgroundImage ? 'hidden' :''} src={`${Img_URL}${movie.backdrop_path}`} alt={'Background_image'}/>
             ))
           }
@@ -67,7 +68,7 @@ const Banner = ({Popular}) => {
           </div>
           <div className="carosel">
               {
-                Popular.slice(0,10).map((movie,i)=>(
+                Popular.map((movie,i)=>(
                   <div key={movie.id} className={i===backgroundImage?"selected":"unSelected"} onClick={()=> setBackgroundImage(i)}></div>
                 ))
               }

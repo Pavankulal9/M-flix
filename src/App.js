@@ -1,7 +1,6 @@
 import {lazy,Suspense} from 'react';
 import  './style/App.scss';
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
-import {ToastContainer} from 'react-toast';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 import Home from './Pages/Home';
@@ -16,11 +15,10 @@ const Favorites = lazy(()=> import('./Pages/Favorites'));
 const App=()=>{
     return(
      <div className='app'>
-        <ToastContainer delay={3000}/>
          <Router>
             <Header/>
-                <Suspense fallback={<Loading/>}>
-               <Routes>
+            <Suspense fallback={<Loading/>}>
+                <Routes>
                     <Route path={'/'} element={<Home/>}/>
                     <Route path={'/search/:searchTerm'} element={<Search/>}/>
                     <Route path={'/popular'} element={<Popular/>}/>
@@ -28,7 +26,7 @@ const App=()=>{
                     <Route path={'/upcoming'} element={<Upcoming/>}/>
                     <Route path={'/genres'} element={<Genres/>}/>
                     <Route path={'/favorites'} element={<Favorites/>}/>
-               </Routes>
+                </Routes>
             </Suspense>
             <Footer/>
          </Router>

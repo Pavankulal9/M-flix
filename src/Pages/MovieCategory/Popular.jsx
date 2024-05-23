@@ -18,7 +18,7 @@ const Popular = () => {
      });
    }
   
-    const { isLoading,isError,error } = useQuery({
+    const { isLoading,isError} = useQuery({
         queryKey: ["PopularList",`${page}`],
         queryFn: () =>
           fetchMovieList("popular",`${page}`).then((res) => {
@@ -37,6 +37,7 @@ const Popular = () => {
           setSelectedMovie("");
         }
       },[setSelectedMovie]);
+      
 
       if (isLoading&&popularMovieList.length < 0) {
         return (
@@ -44,7 +45,7 @@ const Popular = () => {
         );
       } else if (isError) {
         return (
-          <Error error={error.message}/>
+          <Error />
         );
       } else
   return (

@@ -18,7 +18,6 @@ const Favorites = () => {
       setFavoritesMovies(JSON.parse(localStorage.getItem('Favorites')));
     },[selectedMovie]);
       
-    console.log(FavoritesMovies)
   return (
   <div className={'movie-categorie'}>
     <div className="MoviesList">

@@ -81,25 +81,24 @@
         @include height-width-Setter(100%,auto,0.5rem);
         display: grid;
         place-items:left;
-        overflow-x: auto;
-        @include scrollBar();
     > h1 {
         color: $primary-text-color;
         margin-bottom:1rem
     }
     > div {
         @include height-width-Setter(100%,auto);
-        @include flexBox(none,center,0.5rem);
+        @include flexBox(none,flex-start,0.5rem);
+        overflow-x: auto;
+        @include scrollBar();
         > .card {
               @include height-width-Setter(170px,270px);
               border-radius: 5px;
                > img {
-                @include height-width-Setter();
-                object-fit: cover;
+                @include height-width-Setter(170px,260px);
                 border-radius: 5px;
               }
               > .loading{
-                @include loadingScree();
+                @include loadingScree(170px,100%);
               }
         }  
     }

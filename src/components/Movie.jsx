@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Img_URL, fetchMovieDetails } from '../utils/fetchApi';
-import {toast} from 'react-toast';
 import Loading from '../Pages/Loading';
 import Error from '../Pages/Error';
 import {AiFillStar} from 'react-icons/ai';
@@ -31,29 +30,24 @@ const Movie = ({id}) => {
     })
   });
 
-  const addToFavouriteHandler = (movie)=>{
+  const addToFavouriteHandler = (e,movie)=>{
+    e.stopPropagation();
     const Movie = [movie];
    if(!favourite){
     setFavourite(Movie);
     localStorage.setItem('Favorites',JSON.stringify(Movie));
-    toast.success('Movie added to favorites');
    }else{
-    const isPresent = favourite.find((mov)=> mov.id === movie.id);
-    if(isPresent){
-      toast.warn('Movie already added in favorites!');
-    }else{
       const addNewFavorites = [...favourite,movie];
       setFavourite(addNewFavorites);
       localStorage.setItem('Favorites',JSON.stringify(addNewFavorites));
-      toast.success('Movie added to favorites');
     }
-   }
   }
 
-  const removeFromFavourite=(movie)=>{
+  const removeFromFavourite=(e,movie)=>{
+   e.stopPropagation();
    const newList = favourite.filter((m)=> m.id !== movie.id);
    localStorage.setItem('Favorites',JSON.stringify(newList));
-   toast.success('Movie removed from favorites');
+   setFavourite(newList);
   }
   
   return (
@@ -82,12 +76,7 @@ const Movie = ({id}) => {
            <p >Status: <span style={{color:Movie.status==='Released'?'greenyellow':'red'}}> {Movie?.status}</span></p>
           </div>
           <div className='button'>
-           {
-            favourite.length < 0?
-            <button onClick={()=> addToFavouriteHandler(Movie)}>Add as favourite</button>
-            :
             <AddRemoveButton favourite={favourite} movie={Movie} addToFavouriteHandler={addToFavouriteHandler} removeFromFavourite={removeFromFavourite}/>
-           }
           </div>
         </div>
       </div>

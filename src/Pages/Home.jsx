@@ -8,6 +8,7 @@ import Movie from "../components/Movie";
 import Banner from "../components/Banner";
 import MoviesList from "../components/MoviesList";
 const Home = () => {
+  
   const {selectedMovie}=useContext(MovieContext);
   
   const {isError:isErrorPopular, data: Popular,isLoading:isLoadingPopular } = useQuery({
@@ -51,14 +52,19 @@ const Home = () => {
   return (
     <section className="home">
       {
-        Popular && <Banner Popular={Popular}/>
+        Popular && <Banner Popular={Popular.slice(0,10)}/>
       }
       {
         selectedMovie.length > 0 && <Movie id={selectedMovie}/> 
       }
+      {
+      Popular && Toprated && upcoming &&
+      <>
       <MoviesList title={"TOP RATED"} MoviesListArray={Toprated}   ClassName="MoviesListRow"/>
       <MoviesList title={"POPULAR"} MoviesListArray={Popular}  ClassName="MoviesListRow"/>
       <MoviesList title={"UPCOMING"} MoviesListArray={upcoming} ClassName="MoviesListRow"/>
+      </>
+      }
     </section>
   );
 };

@@ -16,7 +16,7 @@ const Upcoming = () => {
       setPage((prev)=> prev + 1);
    }
   
-    const { isLoading,isError,error} = useQuery({
+    const { isLoading,isError} = useQuery({
         queryKey: ["UpcomingList",`${page}`],
         queryFn: () =>
           fetchMovieList("upcoming",`${page}`).then((res) => {
@@ -42,7 +42,7 @@ const Upcoming = () => {
         );
       } else if (isError) {
         return (
-          <Error error={error.message}/>
+          <Error/>
         );
       } else
   return (

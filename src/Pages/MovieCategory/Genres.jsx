@@ -31,7 +31,7 @@ const Genres = () => {
   setPage(1);
  }
 
-  const { isLoading,isError,error} = useQuery({
+  const { isLoading,isError} = useQuery({
       queryKey: ["GenreList",`${genreId}`,`${page}`],
       queryFn: () =>
         fetchGenreList(`${genreId}`,`${page}`).then((res) => {
@@ -59,7 +59,7 @@ const Genres = () => {
       );
     } else if (isError) {
       return (
-        <Error error={error.message}/>
+        <Error/>
       );
     } else
 return (

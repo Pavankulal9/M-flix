@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext} from 'react';
 import {Img_URL} from '../utils/fetchApi';
 import PreLoadingImage from './PreLoadingImage';
 import { MovieContext } from '../utils/context';
