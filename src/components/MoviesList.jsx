@@ -7,7 +7,7 @@ import { MovieContext } from '../utils/context';
 const MoviesList = ({MoviesListArray,title,ClassName="MoviesList",loadMoreRef=null}) => {
 
   const {setSelectedMovie}=useContext(MovieContext);
- 
+
 
   return (
     <div className={ClassName}>

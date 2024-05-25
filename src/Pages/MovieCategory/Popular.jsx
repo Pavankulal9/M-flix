@@ -13,7 +13,7 @@ const Popular = () => {
     const [page,setPage]=useState(1);
     const [popularMovieList,setPopularMovieList]=useState([]);
     const {selectedMovie,setSelectedMovie}=useContext(MovieContext);
-    const {ref:loadmoreRef,inView} = useInView();
+    const {ref:loadMoreRef,inView} = useInView();
   
     const { isLoading,isError} = useQuery({
         queryKey: ["PopularList",`${page}`],
@@ -28,11 +28,6 @@ const Popular = () => {
           }),
       });
 
-      useEffect(()=>{
-        if(inView){
-          setPage((prev)=> prev + 1);
-        }
-      },[inView]);
      
       useEffect(()=>{
         return ()=>{
@@ -40,6 +35,12 @@ const Popular = () => {
         }
       },[setSelectedMovie]);
       
+      useEffect(()=>{
+        if(inView){
+          setPage((prev)=> prev + 1);
+          console.log('working');
+        }
+      },[inView]);
 
       if (isLoading&&popularMovieList.length < 0) {
         return (
@@ -56,7 +57,7 @@ const Popular = () => {
           selectedMovie.length > 0 && 
          <Movie id={selectedMovie}/> 
         }
-      <MoviesList MoviesListArray={popularMovieList} title={'Popular Movies'} loadmoreRef={loadmoreRef} />
+      <MoviesList MoviesListArray={popularMovieList} title={'Popular Movies'} loadMoreRef={loadMoreRef} />
     </div>
   )
 }
