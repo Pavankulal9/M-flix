@@ -7,13 +7,22 @@ import {FiX} from 'react-icons/fi';
 
 const Header = () => {
     const navigate = useNavigate();
-    const [searchTerm,setSearchTerm]=useState('');
     const [showNavBar,setShowNavBar]=useState(false);
+    const debounce = (cb,delay)=>{
+     let timer;
+     if(timer) return clearTimeout(timer);
+     return function(...arg){
+      timer= setTimeout(()=>{cb(...arg)},delay)
+     }
+    }
 
-    const handlerSubmit =(e)=>{
-        e.preventDefault();
+    const handlerSearch =(e)=>{
+      const searchTerm = e.target.value;
+      if(searchTerm.trim() === "") return ;
+      const searchDebounce = debounce(()=>{
         navigate(`/search/${searchTerm}`);
-        setSearchTerm('');
+      },1500);
+      searchDebounce();
     }
     
   return (
@@ -36,10 +45,10 @@ const Header = () => {
       </Link>
       </div>
       
-      <form onSubmit={handlerSubmit}>
-        <input type='text'placeholder='Search...' onChange={(e)=> setSearchTerm(e.target.value) } value={searchTerm}/>
+      <div className='search-box'>
+        <input type='text' placeholder='Search...' onChange={(e)=> handlerSearch(e)}/>
         <button type='submit'><BiSearch/></button>
-      </form>
+      </div>
     </div>
   )
 }

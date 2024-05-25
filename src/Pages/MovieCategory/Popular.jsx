@@ -6,17 +6,14 @@ import Loading from '../Loading';
 import Error from '../Error';
 import { MovieContext } from '../../utils/context';
 import Movie from '../../components/Movie';
+import { useInView } from 'react-intersection-observer';
+
 const Popular = () => {
 
     const [page,setPage]=useState(1);
     const [popularMovieList,setPopularMovieList]=useState([]);
     const {selectedMovie,setSelectedMovie}=useContext(MovieContext);
-   
-    const loadMoreHandle=()=>{
-     setPage((prev)=> {
-      return prev + 1;
-     });
-   }
+    const {ref:loadmoreRef,inView} = useInView();
   
     const { isLoading,isError} = useQuery({
         queryKey: ["PopularList",`${page}`],
@@ -31,6 +28,11 @@ const Popular = () => {
           }),
       });
 
+      useEffect(()=>{
+        if(inView){
+          setPage((prev)=> prev + 1);
+        }
+      },[inView]);
      
       useEffect(()=>{
         return ()=>{
@@ -54,7 +56,7 @@ const Popular = () => {
           selectedMovie.length > 0 && 
          <Movie id={selectedMovie}/> 
         }
-      <MoviesList MoviesListArray={popularMovieList} loadMoreHandle={loadMoreHandle} title={'Popular Movies'} />
+      <MoviesList MoviesListArray={popularMovieList} title={'Popular Movies'} loadmoreRef={loadmoreRef} />
     </div>
   )
 }
