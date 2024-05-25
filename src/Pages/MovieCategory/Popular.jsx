@@ -27,8 +27,7 @@ const Popular = () => {
             return res.results;
           }),
       });
-
-     
+      
       useEffect(()=>{
         return ()=>{
           setSelectedMovie("");

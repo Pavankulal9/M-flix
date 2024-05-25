@@ -15,6 +15,7 @@ const Search = () => {
   const [page,setPage]= useState(1);
   const abortController = useRef(null);
 
+  
   useEffect(()=>{
     setPage(1);
   },[searchTerm]);
@@ -26,8 +27,7 @@ const Search = () => {
       .then((res)=>{
           return res.results;
       })
-    })
-  
+    });
 
     const nextPageHandler =()=>{
         setPage((prev)=> prev+1);
@@ -63,11 +63,10 @@ const Search = () => {
        {
         searchItem[0]==null && page===1?<h2>Sorry '{searchTerm}' Not Found!!!</h2>:
         searchItem.map((item)=>(
+          item.poster_path !== null &&
          <div key={item.id} onClick={()=> setSelectedMovie(`${item.id}`)}>
           <div className='movie-poster'>
-          { 
-            item.poster_path && <PreLoadingImage src={ `${Img_URL}${item.poster_path}`} alt={`${item.title} Poster`}/>
-          }
+            <PreLoadingImage src={ `${Img_URL}${item.poster_path}`} alt={`${item.title} Poster`}/>
           </div>
           <aside>
           <h1>{item.title}</h1>
