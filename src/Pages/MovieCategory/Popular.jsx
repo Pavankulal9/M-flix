@@ -47,7 +47,8 @@ const Popular = () => {
         return (
           <Error />
         );
-      } else
+      } 
+      
   return (
     <div className='movie-categorie'>
       {
