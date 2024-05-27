@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchMovie } from "../utils/fetchApi";
 import Loading from "./Loading";
 import Error from "./Error";
-import { MovieContext } from "../utils/context";
+import { MovieContext } from "../context/MovieContext";
 import Movie from "../components/Movie";
 import Banner from "../components/Banner";
 import MoviesList from "../components/MoviesList";
@@ -11,31 +11,31 @@ const Home = () => {
   
   const {selectedMovie}=useContext(MovieContext);
   
-  const {isError:isErrorPopular, data: Popular,isLoading:isLoadingPopular } = useQuery({
+  const {isError:isErrorPopular, data:Popular,isLoading:isLoadingPopular } = useQuery({
     queryKey: ["Movie", "Popular"],
     queryFn: () =>
       fetchMovie("popular").then((res) => {
         return res.results;
       }),
-    staleTime: 60000
+    staleTime:300000
   });
 
-  const {isError:isErrorUpcoming,data: upcoming,isLoading:isLoadingUpcoming} = useQuery({
+  const {isError:isErrorUpcoming,data:upcoming,isLoading:isLoadingUpcoming} = useQuery({
     queryKey: ["Movie", "Upcoming"],
     queryFn: () =>
      fetchMovie("upcoming").then((res) => {
       return res.results;
     }),
-    staleTime:  60000
+    staleTime:300000
   });
 
-  const {isError:isErrorToprated, data: Toprated,isLoading:isLoadingToprated } = useQuery({
+  const {isError:isErrorToprated, data:Toprated,isLoading:isLoadingToprated } = useQuery({
     queryKey: ["Movie", "Toprated"],
     queryFn: () =>
       fetchMovie("top_rated").then((res) => {
         return res.results;
       }),
-    staleTime:  60000
+    staleTime:300000
   });
 
 

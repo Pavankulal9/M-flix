@@ -4,17 +4,16 @@ import { useQuery } from '@tanstack/react-query';
 import MoviesList from '../../components/MoviesList';
 import Loading from '../Loading';
 import Error from '../Error';
-import { MovieContext } from '../../utils/context';
+import { MovieContext } from '../../context/MovieContext';
 import Movie from '../../components/Movie';
+import { useInView } from 'react-intersection-observer';
 
 const Upcoming = () => {
     const [page,setPage]=useState(1);
     const [UpcomingMovieList,setUpcomingMovieList]=useState([]);
     const {selectedMovie,setSelectedMovie}=useContext(MovieContext);
-   
-    const loadMoreHandle=()=>{
-      setPage((prev)=> prev + 1);
-   }
+    const {ref:loadMoreRef,inView} = useInView();
+
   
     const { isLoading,isError} = useQuery({
         queryKey: ["UpcomingList",`${page}`],
@@ -28,7 +27,12 @@ const Upcoming = () => {
               return res.results;
           }),
       });
-  
+
+      useEffect(()=>{
+        if(inView){
+          setPage((prev)=> prev + 1);
+        }
+    },[inView]);
      
       useEffect(()=>{
         return ()=>{
@@ -51,7 +55,7 @@ const Upcoming = () => {
           selectedMovie.length > 0 && 
          <Movie id={selectedMovie}/> 
         }
-      <MoviesList MoviesListArray={UpcomingMovieList} loadMoreHandle={loadMoreHandle} title={'Upcoming Movies'}/>
+      <MoviesList MoviesListArray={UpcomingMovieList} loadMoreRef={loadMoreRef} title={'Upcoming Movies'}/>
     </div>
   )
   }

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Img_URL } from '../utils/fetchApi'
-import { MovieContext } from '../utils/context';
+import { MovieContext } from '../context/MovieContext';
 
 const Banner = ({Popular}) => {
 

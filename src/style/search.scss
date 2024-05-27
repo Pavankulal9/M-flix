@@ -6,7 +6,7 @@
     color: $primary-text-color;
     overflow-x: auto;
     @include scrollBar();
-    > div {
+    > .searched-movie {
         @include height-width-Setter(95%,auto,0.5rem 1rem);
         @include flexBox(none,none,1rem);
         margin: .5rem auto;

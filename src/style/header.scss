@@ -13,7 +13,7 @@
             color:$primary-text-color;
         }
     } 
-    > form {
+    >.search-box {
         @include flexBox(center,none);
         background-color: $primary-text-color;
         border-radius: 20px;

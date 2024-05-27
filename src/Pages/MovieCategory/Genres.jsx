@@ -4,27 +4,28 @@ import { useQuery } from '@tanstack/react-query';
 import MoviesList from '../../components/MoviesList';
 import Loading from '../Loading';
 import Error from '../Error';
-import { MovieContext } from '../../utils/context';
+import { MovieContext } from '../../context/MovieContext';
 import Movie from '../../components/Movie';
-
+import { useInView } from 'react-intersection-observer';
 
 const Genres = () => {
   const[genreId,setGenreId]=useState(28);
   const [page,setPage]=useState(1);
   const [GenresList,setGenresList]=useState([]);
   const {selectedMovie,setSelectedMovie}=useContext(MovieContext);
- 
+  const {ref:loadMoreRef,inView} = useInView();
+
   useEffect(()=>{
     return ()=>{
       setSelectedMovie("");
     }
   },[setSelectedMovie]);
 
-  const loadMoreHandle=()=>{
-   setPage((prev)=> {
-    return prev=prev + 1;
-   });
- }
+   useEffect(()=>{
+        if(inView){
+          setPage((prev)=> prev + 1);
+        }
+   },[inView]);
 
  const selectGenreHandler =(e)=>{
   setGenreId(+e.target.value); 
@@ -73,7 +74,7 @@ return (
             ))
         } 
          </aside>
-          <MoviesList title={"Select Genre"} MoviesListArray={GenresList} loadMoreHandle={loadMoreHandle}/>
+          <MoviesList title={"Select Genre"} MoviesListArray={GenresList} loadMoreRef={loadMoreRef}/>
     </div>
     {
           selectedMovie.length > 0 && 

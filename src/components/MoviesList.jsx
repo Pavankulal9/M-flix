@@ -1,11 +1,14 @@
 import React, { useContext} from 'react';
 import {Img_URL} from '../utils/fetchApi';
 import PreLoadingImage from './PreLoadingImage';
-import { MovieContext } from '../utils/context';
+import { MovieContext } from '../context/MovieContext';
 
-const MoviesList = ({MoviesListArray,loadMoreHandle=null,title,ClassName="MoviesList"}) => {
+
+const MoviesList = ({MoviesListArray,title,ClassName="MoviesList",loadMoreRef=null}) => {
 
   const {setSelectedMovie}=useContext(MovieContext);
+
+
   return (
     <div className={ClassName}>
     <h1>{title}</h1>
@@ -18,8 +21,8 @@ const MoviesList = ({MoviesListArray,loadMoreHandle=null,title,ClassName="Movies
     ))}
     </div>
     {
-      loadMoreHandle!==null&&
-     <button onClick={loadMoreHandle}>More</button>
+     loadMoreRef!==null &&
+     <div ref={loadMoreRef}></div>
     }
   </div>
   )
