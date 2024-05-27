@@ -5,7 +5,7 @@ import Loading from '../Pages/Loading';
 import Error from '../Pages/Error';
 import {AiFillStar} from 'react-icons/ai';
 import PreLoadingImage from './PreLoadingImage';
-import { MovieContext } from '../utils/context';
+import { MovieContext } from '../context/MovieContext';
 import AddRemoveButton from './AddRemoveButton';
 
 const Movie = ({id}) => {

@@ -20,7 +20,7 @@ const App=()=>{
             <Suspense fallback={<Loading/>}>
                 <Routes>
                     <Route path={'/'} element={<Home/>}/>
-                    <Route path={'/search/:searchTerm'} element={<Search/>}/>
+                    <Route path={'/search'} element={<Search/>}/>
                     <Route path={'/popular'} element={<Popular/>}/>
                     <Route path={'/toprated'} element={<TopRated/>}/>
                     <Route path={'/upcoming'} element={<Upcoming/>}/>

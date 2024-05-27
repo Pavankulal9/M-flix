@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Img_URL } from '../utils/fetchApi';
 import PreLoadingImage from '../components/PreLoadingImage';
-import { MovieContext } from '../utils/context';
+import { MovieContext } from '../context/MovieContext';
 import Movie from '../components/Movie';
 
 const Favorites = () => {

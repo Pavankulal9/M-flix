@@ -1,30 +1,51 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import {BiSearch} from 'react-icons/bi';
 import {FaHamburger} from 'react-icons/fa';
 import {FiX} from 'react-icons/fi';
+import { SearchTermContext } from '../context/SearchContext';
+import { MovieContext } from '../context/MovieContext';
 
 
 const Header = () => {
-    const navigate = useNavigate();
-    const [showNavBar,setShowNavBar]=useState(false);
-    const debounce = (cb,delay)=>{
-     let timer;
-     if(timer) return clearTimeout(timer);
-     return function(...arg){
-      timer= setTimeout(()=>{cb(...arg)},delay)
-     }
-    }
 
-    const handlerSearch =(e)=>{
-      const searchTerm = e.target.value;
-      if(searchTerm.trim() === "") return ;
-      const searchDebounce = debounce(()=>{
-        navigate(`/search/${searchTerm}`);
-      },1500);
-      searchDebounce();
-    }
+  const {setSelectedMovie}= useContext(MovieContext)
+  const {setSearchTerm} = useContext(SearchTermContext);
+  const [showNavBar,setShowNavBar]=useState(false);
+  const [searchText,setSearchText]=useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+
+
+    const debounce = (cb,delay)=>{
+      let timer;
+      if(timer) return clearTimeout(timer);
+      return function(...arg){
+       timer= setTimeout(()=>{cb(...arg)},delay)
+      }
+     }
+ 
+     const handlerSearch =(e)=>{
+      let text = e.target.value;
+       setSearchText(text);
+       if(text.trim() === "") return ;
+       const searchDebounce = debounce(()=>{
+         setSearchTerm(text);
+       },1500);
+       searchDebounce();
+     }
     
+     const handleNavigate =()=>{
+      if(location.pathname !== '/search'){
+        navigate('/search');
+        setSearchTerm('');
+        setSearchText('');
+      }
+      setSelectedMovie('');
+     }
+
+     
+
   return (
     <div className='header'>
       <ul className={showNavBar ?'NavBar-Open':'NavBar-Close'}>
@@ -46,7 +67,7 @@ const Header = () => {
       </div>
       
       <div className='search-box'>
-        <input type='text' placeholder='Search...' onChange={(e)=> handlerSearch(e)}/>
+        <input type='text' placeholder='Search...' onChange={(e)=> handlerSearch(e)} onFocus={handleNavigate} value={searchText}/>
         <button type='submit'><BiSearch/></button>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { fetchMovieList } from '../../utils/fetchApi';
 import MoviesList from '../../components/MoviesList';
 import Loading from '../Loading';
 import Error from '../Error';
-import { MovieContext } from '../../utils/context';
+import { MovieContext } from '../../context/MovieContext';
 import Movie from '../../components/Movie';
 import { useInView } from 'react-intersection-observer';
 
