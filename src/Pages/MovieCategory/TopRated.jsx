@@ -1,63 +1,61 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { fetchMovieList } from '../../utils/fetchApi';
-import { useQuery } from '@tanstack/react-query';
-import MoviesList from '../../components/MoviesList';
-import Loading from '../Loading';
-import Error from '../Error';
-import { MovieContext } from '../../context/MovieContext';
-import Movie from '../../components/Movie';
-import { useInView } from 'react-intersection-observer';
+import React, { useContext, useEffect } from "react";
+import { fetchMovieList } from "../../utils/fetchApi";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import MoviesList from "../../components/MoviesList";
+import Loading from "../Loading";
+import Error from "../Error";
+import { MovieContext } from "../../context/MovieContext";
+import Movie from "../../components/Movie";
+import { useInView } from "react-intersection-observer";
 
 const TopRated = () => {
-  const [page,setPage]=useState(1);
-  const [TopRatedMovieList,setTopRatedMovieList]=useState([]);
-  const {selectedMovie,setSelectedMovie}=useContext(MovieContext);
-  const {ref:loadMoreRef,inView} = useInView();
+  const { selectedMovie, setSelectedMovie } = useContext(MovieContext);
+  const { ref: loadMoreRef, inView } = useInView();
 
-  const { isLoading,isError} = useQuery({
-      queryKey: ["TopratedList",`${page}`],
-      queryFn: () =>
-        fetchMovieList("top_rated",`${page}`).then((res) => {
-            if(page===1){
-                setTopRatedMovieList(res.results);
-            }else{
-              setTopRatedMovieList((prev)=> [...prev,...res.results]);
-            }
-            return  res.results;
-        }),
-    });
+  const {
+    data: TopRated,
+    status,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["TopratedList"],
+    queryFn: ({ pageParam }) =>
+      fetchMovieList({ category: "top_rated", pageParam }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPage) => {
+      const nextPage = lastPage.length ? allPage.length + 1 : undefined;
+      return nextPage;
+    },
+  });
 
-   useEffect(()=>{
-        if(inView){
-          setPage((prev)=> prev + 1);
-        }
-    },[inView]);
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage]);
 
-    useEffect(()=>{
-      return ()=>{
-        setSelectedMovie("");
-      }
-    },[setSelectedMovie]);
-    
+  useEffect(() => {
+    return () => {
+      setSelectedMovie("");
+    };
+  }, [setSelectedMovie]);
 
-    if (isLoading&&TopRatedMovieList.length < 0) {
-      return (
-        <Loading type={'text'}/>
-      );
-    } else if (isError) {
-      return (
-        <Error/>
-      );
-    } else
-return (
-  <div className='movie-categorie'>
-    {
-          selectedMovie.length > 0 && 
-         <Movie id={selectedMovie}/> 
-      }
-    <MoviesList MoviesListArray={TopRatedMovieList} loadMoreRef={loadMoreRef} title={'Top-Rated Movies'}/>
-  </div>
-)
-}
+  if (status === "pending") {
+    return <Loading type={"text"} />;
+  } else if (status === "error") {
+    return <Error />;
+  } else
+    return (
+      <div className="movie-categorie">
+        {selectedMovie.length > 0 && <Movie id={selectedMovie} />}
+        <MoviesList
+          MoviesListArray={TopRated}
+          loadMoreRef={loadMoreRef}
+          title={"Top-Rated Movies"}
+          hasNextPage={hasNextPage}
+        />
+      </div>
+    );
+};
 
-export default TopRated
+export default TopRated;

@@ -8,7 +8,7 @@ export const Img_URL = "https://image.tmdb.org/t/p/original/";
 export const fetchMovie=async(category)=>{
     try {
         const {data}= await Axios.get(`/movie/${category}?api_key=${process.env.REACT_APP_API_KEY}`);
-        return data;
+        return data.results;
     } catch (error) {
         console.log(error.message);
     }
@@ -23,21 +23,19 @@ export const fetchMovieDetails=async(id)=>{
     }
 };
 
-export const fetchMovieList=async(category,page)=>{
+export const fetchMovieList=async({category,pageParam})=>{
     try {
-        const {data}= await Axios.get(`/movie/${category}?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`);
-        return data;
+        const {data}= await Axios.get(`/movie/${category}?api_key=${process.env.REACT_APP_API_KEY}&page=${pageParam}`);
+        return data.results;
     } catch (error) {
         console.log(error.message);
     }
 };
 
-export const fetchSearch=async(searchTerm,page,abortContorller)=>{
-    abortContorller.currnet?.abort();
-    abortContorller.current = new AbortController();
+export const fetchSearch=async(searchTerm,page)=>{
     try {
-        const {data}= await Axios.get(`/search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${searchTerm}&language=india&page=${page}`,{signal: abortContorller.current?.signal});
-        return data;
+        const {data}= await Axios.get(`/search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${searchTerm}&language=india&page=${page}`);
+        return data.results;
     } catch (error) {
         console.log(error.message);
     }
@@ -47,16 +45,16 @@ export const fetchSearch=async(searchTerm,page,abortContorller)=>{
 export const fetchGenresList=async()=>{
     try {
         const {data}= await Axios.get(`/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}`);
-        return data;
+        return data.genres;
     } catch (error) {
         console.log(error.message);
     }
 };
 
-export const fetchGenreList=async(genres,page)=>{
+export const fetchGenres=async({genreId,pageParam})=>{
     try {
-        const {data}= await Axios.get(`/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&with_genres=${genres}&page=${page}`);
-        return data;
+        const {data}= await Axios.get(`/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&with_genres=${genreId}&page=${pageParam}`);
+        return data.results;
     } catch (error) {
         console.log(error.message);
     }

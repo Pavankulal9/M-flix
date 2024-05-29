@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
-import { createContext } from 'react'
- export const MovieContext = new createContext();
+import React, { useState } from "react";
+import { createContext } from "react";
+export const MovieContext = new createContext();
 
-const MovieProvider = ({children}) => {
-    const [selectedMovie,setSelectedMovie]= useState("");
+const MovieProvider = ({ children }) => {
+  const [selectedMovie, setSelectedMovie] = useState("");
 
   return (
-    <MovieContext.Provider value={{selectedMovie,setSelectedMovie}}>{children}</MovieContext.Provider>
-  )
-}
+    <MovieContext.Provider value={{ selectedMovie, setSelectedMovie }}>
+      {children}
+    </MovieContext.Provider>
+  );
+};
 
-export default MovieProvider
+export default MovieProvider;

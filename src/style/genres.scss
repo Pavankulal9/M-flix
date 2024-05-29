@@ -19,6 +19,7 @@
         }
         >.MoviesList{
           @include height-width-Setter(85%,100%);
+          text-align: center;
           > div{
             @include height-width-Setter(95%,auto);
           }
