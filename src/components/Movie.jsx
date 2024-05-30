@@ -25,12 +25,10 @@ const Movie = ({ id }) => {
     isError,
     isLoading,
     data: Movie,
+    error,
   } = useQuery({
     queryKey: ["Movie", `${id}`],
-    queryFn: () =>
-      fetchMovieDetails(`${id}`).then((res) => {
-        return res.data;
-      }),
+    queryFn: () => fetchMovieDetails(`${id}`)
   });
 
   const addToFavouriteHandler = (e, movie) => {
@@ -58,7 +56,7 @@ const Movie = ({ id }) => {
       {isLoading ? (
         <Loading type={"text"} />
       ) : isError ? (
-        <Error />
+        <Error error={error}/>
       ) : (
         <div
           className="movie-box"

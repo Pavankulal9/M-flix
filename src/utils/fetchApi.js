@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 const Axios= axios.create({
-    baseURL:"https://api.themoviedb.org/3"
+    baseURL:"https://api.themoviedb.org/3",
 }); 
+
 export const Img_URL = "https://image.tmdb.org/t/p/original/";
 
 export const fetchMovie=async(category)=>{
@@ -16,8 +17,8 @@ export const fetchMovie=async(category)=>{
 
 export const fetchMovieDetails=async(id)=>{
     try {
-        const response= await Axios.get(`/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}`);
-        return response;
+        const {data}= await Axios.get(`/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}`);
+        return data;
     } catch (error) {
         console.log(error.message);
     }

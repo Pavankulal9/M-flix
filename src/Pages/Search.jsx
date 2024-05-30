@@ -15,7 +15,7 @@ const Search = () => {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    setPage(1);
+     setPage(1);
   }, [searchTerm]);
 
   const {
@@ -23,7 +23,7 @@ const Search = () => {
     isError,
     data: searchItem,
   } = useQuery({
-    queryKey: ["searchItem", `${page}`, `${searchTerm}`],
+    queryKey: [`${searchTerm}-${page}`],
     queryFn: () => fetchSearch(`${searchTerm}`, `${page}`),
   });
 
@@ -47,7 +47,7 @@ const Search = () => {
     <section className="search">
       {searchTerm.length === 0 && <h2>Please enter the movie name</h2>}
       {searchItem === undefined ? (
-        <Error error={"SeverError Please try later"} />
+        <Error error={"Sever error Please try later"} />
       ) : (
         <>
           {searchItem[0] == null && searchTerm.length > 0 && page === 1 ? (

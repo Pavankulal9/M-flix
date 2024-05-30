@@ -20,7 +20,7 @@ const Popular = () => {
   } = useInfiniteQuery({
     queryKey: ["PopularList"],
     queryFn: ({ pageParam }) =>
-      fetchMovieList({ category: "popular", pageParam }),
+       fetchMovieList({ category: "popular", pageParam }),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPage) => {
       const nextPage = lastPage.length ? allPage.length + 1 : undefined;
