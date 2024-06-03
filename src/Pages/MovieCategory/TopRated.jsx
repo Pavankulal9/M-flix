@@ -29,9 +29,9 @@ const TopRated = () => {
   });
 
   useEffect(() => {
-    if (inView) {
-      fetchNextPage();
-    }
+      if (inView) {
+        fetchNextPage();
+      }
   }, [inView, fetchNextPage]);
 
   useEffect(() => {
