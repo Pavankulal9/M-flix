@@ -19,7 +19,7 @@ const Search = () => {
   }, [searchTerm]);
 
   const {
-    isLoading,
+    isFetching,
     isError,
     data: searchItem,
   } = useQuery({
@@ -37,7 +37,7 @@ const Search = () => {
     }
   };
 
-  if (isLoading) {
+  if (isFetching) {
     return <Loading type={"text"} />;
   } else if (isError) {
     return <Error />;
