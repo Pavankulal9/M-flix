@@ -118,7 +118,7 @@
                 >.next-banner{
                     @include height-width-Setter(20%,100%);
                 }
-                > .movie-details {
+                > .show-movie-details {
                     width: 100%;
                     bottom: 5%;
                     > h1 {
@@ -139,8 +139,7 @@
                         }
                     }
                 }
-                > .carousel{
-                    
+                > .carousel{  
                     > .unSelected{
                         @include height-width-Setter(8px,8px);
                     }
