@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
 import { FaHamburger } from "react-icons/fa";
 import { FiX } from "react-icons/fi";
-import { SearchTermContext } from "../context/SearchContext";
-import { MovieContext } from "../context/MovieContext";
+import useSelectMovie from "../hooks/useSelectMovie";
+import useSearchTerm from "../hooks/useSearchTerm";
 
 const Header = () => {
-  const { setSelectedMovie } = useContext(MovieContext);
-  const { setSearchTerm } = useContext(SearchTermContext);
+  const { setSelectedMovie } = useSelectMovie();
+  const { setSearchTerm } = useSearchTerm();
   const [showNavBar, setShowNavBar] = useState(false);
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
@@ -38,7 +38,6 @@ const Header = () => {
     if (location.pathname !== "/search") {
       navigate("/search");
       setSearchTerm("");
-      setSearchText("");
     }
     setSelectedMovie("");
   };

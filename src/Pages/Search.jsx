@@ -1,21 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Img_URL, fetchSearch } from "../utils/fetchApi";
 import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
-import Loading from "./Loading";
 import Error from "./Error";
 import PreLoadingImage from "../components/PreLoadingImage";
-import { MovieContext } from "../context/MovieContext";
 import Movie from "../components/Movie";
-import { SearchTermContext } from "../context/SearchContext";
+import withLoadingAndError from "../HOC/withLoadingAndError";
+import useSelectMovie from "../hooks/useSelectMovie";
+import useSearchTerm from "../hooks/useSearchTerm";
 
 const Search = () => {
-  const { selectedMovie, setSelectedMovie } = useContext(MovieContext);
-  const { searchTerm } = useContext(SearchTermContext);
+  const { selectedMovie, setSelectedMovie } = useSelectMovie();
+  const { searchTerm } = useSearchTerm();
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-     setPage(1);
+    setPage(1);
   }, [searchTerm]);
 
   const {
@@ -37,12 +37,30 @@ const Search = () => {
     }
   };
 
-  if (isFetching) {
-    return <Loading type={"text"} />;
-  } else if (isError) {
-    return <Error />;
-  }
+  return (
+    <SearchCompWithHandler
+      isLoading={isFetching}
+      isError={isError}
+      searchItem={searchItem}
+      searchTerm={searchTerm}
+      setSelectedMovie={setSelectedMovie}
+      selectedMovie={selectedMovie}
+      prevPageHandler={prevPageHandler}
+      nextPageHandler={nextPageHandler}
+      page={page}
+    />
+  );
+};
 
+const SearchComponent = ({
+  searchItem,
+  searchTerm,
+  setSelectedMovie,
+  selectedMovie,
+  prevPageHandler,
+  nextPageHandler,
+  page,
+}) => {
   return (
     <section className="search">
       {searchTerm.length === 0 && <h2>Please enter the movie name</h2>}
@@ -99,5 +117,7 @@ const Search = () => {
     </section>
   );
 };
+
+const SearchCompWithHandler = withLoadingAndError(SearchComponent);
 
 export default Search;

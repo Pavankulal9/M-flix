@@ -1,25 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Img_URL, fetchMovieDetails } from "../utils/fetchApi";
-import Loading from "../Pages/Loading";
-import Error from "../Pages/Error";
 import { AiFillStar } from "react-icons/ai";
 import PreLoadingImage from "./PreLoadingImage";
-import { MovieContext } from "../context/MovieContext";
 import AddRemoveButton from "./AddRemoveButton";
+import useSelectMovie from "../hooks/useSelectMovie";
+import Loading from "../Pages/Loading";
+import Error from "../Pages/Error";
 
 const Movie = ({ id }) => {
-  const [favourite, setFavourite] = useState([]);
-  const { setSelectedMovie } = useContext(MovieContext);
-
-  useEffect(() => {
-    const isFavoriteMovie = JSON.parse(localStorage.getItem("Favorites"));
-    if (isFavoriteMovie === null) {
-      return;
-    } else {
-      return setFavourite(isFavoriteMovie);
-    }
-  }, []);
+  const { setSelectedMovie } = useSelectMovie();
 
   const {
     isError,
@@ -28,35 +17,15 @@ const Movie = ({ id }) => {
     error,
   } = useQuery({
     queryKey: ["Movie", `${id}`],
-    queryFn: () => fetchMovieDetails(`${id}`)
+    queryFn: () => fetchMovieDetails(`${id}`),
   });
-
-  const addToFavouriteHandler = (e, movie) => {
-    e.stopPropagation();
-    const Movie = [movie];
-    if (!favourite) {
-      setFavourite(Movie);
-      localStorage.setItem("Favorites", JSON.stringify(Movie));
-    } else {
-      const addNewFavorites = [...favourite, movie];
-      setFavourite(addNewFavorites);
-      localStorage.setItem("Favorites", JSON.stringify(addNewFavorites));
-    }
-  };
-
-  const removeFromFavourite = (e, movie) => {
-    e.stopPropagation();
-    const newList = favourite.filter((m) => m.id !== movie.id);
-    localStorage.setItem("Favorites", JSON.stringify(newList));
-    setFavourite(newList);
-  };
 
   return (
     <section className="movie" onClick={() => setSelectedMovie("")}>
       {isLoading ? (
-        <Loading type={"text"} />
+        <Loading />
       ) : isError ? (
-        <Error error={error}/>
+        <Error error={error} />
       ) : (
         <div
           className="movie-box"
@@ -107,12 +76,7 @@ const Movie = ({ id }) => {
                   </p>
                 </div>
                 <div className="button">
-                  <AddRemoveButton
-                    favourite={favourite}
-                    movie={Movie}
-                    addToFavouriteHandler={addToFavouriteHandler}
-                    removeFromFavourite={removeFromFavourite}
-                  />
+                  <AddRemoveButton movie={Movie} />
                 </div>
               </div>
             </div>

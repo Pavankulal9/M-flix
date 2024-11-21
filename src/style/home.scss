@@ -32,7 +32,7 @@
                 object-fit: cover;
                 border-radius: 20px;
             }
-            > .movie-details {
+            > .show-movie-details {
                 position: absolute;
                 @include height-width-Setter(100%,95%);
                 bottom: 5%;
@@ -57,7 +57,10 @@
                     }
                 }
             }
-            > .carosel{
+            > .hide-movie-details{
+                display: none;
+            }
+            > .carousel{
                 position: absolute;
                 bottom: 0;
                 background: rgba(15, 15, 15, 0.335);
@@ -127,7 +130,7 @@
                         text-overflow: ellipsis;
                         overflow: hidden;
                         display: -webkit-box;
-                        -webkit-line-clamp: 4;
+                        line-clamp: 4;
                         -webkit-box-orient: vertical;
                     }
                     > div {
@@ -136,7 +139,7 @@
                         }
                     }
                 }
-                > .carosel{
+                > .carousel{
                     
                     > .unSelected{
                         @include height-width-Setter(8px,8px);

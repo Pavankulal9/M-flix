@@ -1,22 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Img_URL } from "../utils/fetchApi";
 import PreLoadingImage from "../components/PreLoadingImage";
-import { MovieContext } from "../context/MovieContext";
 import Movie from "../components/Movie";
+import useSelectMovie from "../hooks/useSelectMovie";
 
 const Favorites = () => {
   const [FavoritesMovies, setFavoritesMovies] = useState([]);
-  const { selectedMovie, setSelectedMovie } = useContext(MovieContext);
-
-  useEffect(() => {
-    return () => {
-      setSelectedMovie("");
-    };
-  }, [setSelectedMovie]);
+  const { selectedMovie, setSelectedMovie } = useSelectMovie();
 
   useEffect(() => {
     setFavoritesMovies(JSON.parse(localStorage.getItem("Favorites")));
-  }, [selectedMovie]);
+  }, []);
 
   return (
     <div className={"movie-categorie"}>

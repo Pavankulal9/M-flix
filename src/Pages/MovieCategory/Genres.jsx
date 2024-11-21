@@ -1,26 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { fetchGenresList, fetchGenres } from "../../utils/fetchApi";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import MoviesList from "../../components/MoviesList";
-import Loading from "../Loading";
-import Error from "../Error";
-import { MovieContext } from "../../context/MovieContext";
 import Movie from "../../components/Movie";
-import { useInView } from "react-intersection-observer";
+import withLoadingAndError from "../../HOC/withLoadingAndError";
+import useSelectMovie from "../../hooks/useSelectMovie";
+import useFetchInView from "../../hooks/useFetchInView";
 
 const Genres = () => {
-  const [genreId, setGenreId] = useState(28);
-  const { selectedMovie, setSelectedMovie } = useContext(MovieContext);
-  const { ref: loadMoreRef, inView } = useInView();
-
   const {
     data: genre,
-    isLoading,
-    isError,
+    isLoading: isGenreLoading,
+    isError: isGenreError,
   } = useQuery({
     queryKey: ["genre"],
     queryFn: fetchGenresList,
   });
+
+  const [genreId, setGenreId] = useState(28);
 
   const {
     data: genresList,
@@ -37,27 +34,40 @@ const Genres = () => {
     },
   });
 
+  const { selectedMovie } = useSelectMovie();
+  const { ref: loadMoreRef } = useFetchInView(fetchNextPage);
+
   const selectGenreHandler = (e) => {
     setGenreId(+e.target.value);
   };
 
-  useEffect(() => {
-    return () => {
-      setSelectedMovie("");
-    };
-  }, [setSelectedMovie]);
+  const isLoading = isGenreLoading || status === "pending";
+  const isError = status === "error" || isGenreError;
 
-  useEffect(() => {
-    if (inView) {
-      fetchNextPage();
-    }
-  }, [inView, fetchNextPage]);
+  return (
+    <GenreCompWithHandler
+      isLoading={isLoading}
+      isError={isError}
+      genre={genre}
+      genreId={genreId}
+      genresList={genresList}
+      loadMoreRef={loadMoreRef}
+      hasNextPage={hasNextPage}
+      selectGenreHandler={selectGenreHandler}
+      selectedMovie={selectedMovie}
+    />
+  );
+};
 
-  if (isLoading || status === "pending") {
-    return <Loading type={"text"} />;
-  } else if (status === "error" || isError) {
-    return <Error />;
-  }
+const GenreComponent = ({
+  genre,
+  genreId,
+  genresList,
+  loadMoreRef,
+  hasNextPage,
+  selectGenreHandler,
+  selectedMovie,
+}) => {
   return (
     <section className="genre-body">
       <div className="genre-container">
@@ -88,5 +98,7 @@ const Genres = () => {
     </section>
   );
 };
+
+const GenreCompWithHandler = withLoadingAndError(GenreComponent);
 
 export default Genres;

@@ -1,24 +1,19 @@
-import React, { useContext, useEffect } from "react";
 import { fetchMovieList } from "../../utils/fetchApi";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import MoviesList from "../../components/MoviesList";
-import Loading from "../Loading";
-import Error from "../Error";
-import { MovieContext } from "../../context/MovieContext";
 import Movie from "../../components/Movie";
-import { useInView } from "react-intersection-observer";
+import withLoadingAndError from "../../HOC/withLoadingAndError";
+import useSelectMovie from "../../hooks/useSelectMovie";
+import useFetchInView from "../../hooks/useFetchInView";
 
 const TopRated = () => {
-  const { selectedMovie, setSelectedMovie } = useContext(MovieContext);
-  const { ref: loadMoreRef, inView } = useInView();
-
   const {
     data: TopRated,
     status,
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: ["TopratedList"],
+    queryKey: ["TopRatedList"],
     queryFn: ({ pageParam }) =>
       fetchMovieList({ category: "top_rated", pageParam }),
     initialPageParam: 1,
@@ -28,34 +23,43 @@ const TopRated = () => {
     },
   });
 
-  useEffect(() => {
-      if (inView) {
-        fetchNextPage();
-      }
-  }, [inView, fetchNextPage]);
+  const { selectedMovie } = useSelectMovie();
+  const { ref: loadMoreRef } = useFetchInView(fetchNextPage);
 
-  useEffect(() => {
-    return () => {
-      setSelectedMovie("");
-    };
-  }, [setSelectedMovie]);
+  const isLoading = status === "pending";
+  const isError = status === "error";
 
-  if (status === "pending") {
-    return <Loading type={"text"} />;
-  } else if (status === "error") {
-    return <Error />;
-  } else
-    return (
-      <div className="movie-categorie">
-        {selectedMovie.length > 0 && <Movie id={selectedMovie} />}
-        <MoviesList
-          MoviesListArray={TopRated}
-          loadMoreRef={loadMoreRef}
-          title={"Top-Rated Movies"}
-          hasNextPage={hasNextPage}
-        />
-      </div>
-    );
+  return (
+    <TopRatedComponentWithHandler
+      isLoading={isLoading}
+      isError={isError}
+      selectedMovie={selectedMovie}
+      TopRated={TopRated}
+      loadMoreRef={loadMoreRef}
+      hasNextPage={hasNextPage}
+    />
+  );
 };
+
+const TopRatedComponent = ({
+  selectedMovie,
+  TopRated,
+  loadMoreRef,
+  hasNextPage,
+}) => {
+  return (
+    <div className="movie-categorie">
+      {selectedMovie.length > 0 && <Movie id={selectedMovie} />}
+      <MoviesList
+        MoviesListArray={TopRated}
+        loadMoreRef={loadMoreRef}
+        title={"Top-Rated Movies"}
+        hasNextPage={hasNextPage}
+      />
+    </div>
+  );
+};
+
+const TopRatedComponentWithHandler = withLoadingAndError(TopRatedComponent);
 
 export default TopRated;

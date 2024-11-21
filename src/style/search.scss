@@ -7,7 +7,7 @@
     overflow-x: auto;
     @include scrollBar();
     > .searched-movie {
-        @include height-width-Setter(95%,auto,0.5rem 1rem);
+        @include height-width-Setter(95%,450px,0.5rem 1rem);
         @include flexBox(none,none,1rem);
         margin: .5rem auto;
         transition: .5s;
@@ -60,7 +60,7 @@
 
 @media only screen and (max-width: 600px) {
     .search > .searched-movie {
-        @include height-width-Setter(80%,auto);
+        @include height-width-Setter(80%,450px);
         flex-direction:column;
         align-items: center;
     }

@@ -1,15 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMovie } from "../utils/fetchApi";
-import Loading from "./Loading";
-import Error from "./Error";
-import { MovieContext } from "../context/MovieContext";
 import Movie from "../components/Movie";
 import Banner from "../components/Banner";
 import MoviesList from "../components/MoviesList";
-const Home = () => {
+import withLoadingAndError from "../HOC/withLoadingAndError";
+import useSelectMovie from "../hooks/useSelectMovie";
 
-  const { selectedMovie } = useContext(MovieContext);
+const Home = () => {
+  const { selectedMovie } = useSelectMovie();
 
   const {
     isError: isErrorPopular,
@@ -17,7 +16,7 @@ const Home = () => {
     isLoading: isLoadingPopular,
   } = useQuery({
     queryKey: ["Popular"],
-    queryFn:() => fetchMovie("popular"),
+    queryFn: () => fetchMovie("popular"),
     staleTime: 300000,
   });
 
@@ -27,36 +26,45 @@ const Home = () => {
     isLoading: isLoadingUpcoming,
   } = useQuery({
     queryKey: ["Upcoming"],
-    queryFn:() => fetchMovie("upcoming"),
+    queryFn: () => fetchMovie("upcoming"),
     staleTime: 300000,
   });
 
   const {
-    isError: isErrorToprated,
-    data: Toprated,
-    isLoading: isLoadingToprated,
+    isError: isErrorTopRated,
+    data: TopRated,
+    isLoading: isLoadingTopRated,
   } = useQuery({
-    queryKey: ["Toprated"],
-    queryFn:() => fetchMovie("top_rated"),
+    queryKey: ["TopRated"],
+    queryFn: () => fetchMovie("top_rated"),
     staleTime: 300000,
   });
 
+  const isLoading = isLoadingPopular && isLoadingUpcoming && isLoadingTopRated;
+  const isError = isErrorPopular && isErrorTopRated && isErrorUpcoming;
 
-  if (isLoadingPopular && isLoadingUpcoming && isLoadingToprated) {
-    return <Loading type={"text"} />;
-  } else if (isErrorPopular && isErrorToprated && isErrorUpcoming) {
-    return <Error />;
-  }
+  return (
+    <HomeCompWithHandler
+      isLoading={isLoading}
+      isError={isError}
+      Popular={Popular}
+      selectedMovie={selectedMovie}
+      TopRated={TopRated}
+      upcoming={upcoming}
+    />
+  );
+};
 
+const HomeComponent = ({ Popular, selectedMovie, TopRated, upcoming }) => {
   return (
     <section className="home">
       {Popular && <Banner Popular={Popular.slice(0, 10)} />}
       {selectedMovie.length > 0 && <Movie id={selectedMovie} />}
-      {Popular && Toprated && upcoming && (
+      {Popular && TopRated && upcoming && (
         <>
           <MoviesList
             title={"TOP RATED"}
-            MoviesListArray={Toprated}
+            MoviesListArray={TopRated}
             ClassName="MoviesListRow"
           />
           <MoviesList
@@ -74,5 +82,7 @@ const Home = () => {
     </section>
   );
 };
+
+const HomeCompWithHandler = withLoadingAndError(HomeComponent);
 
 export default Home;

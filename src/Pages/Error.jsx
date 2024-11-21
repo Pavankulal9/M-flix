@@ -5,7 +5,7 @@ const Error = ({ error = null }) => {
     <div className="error">
       {error === null ? (
         <p>
-          Somthing went wrong!.Please check your internet connetion and try
+          Something went wrong!.Please check your internet connection and try
           again!
         </p>
       ) : (

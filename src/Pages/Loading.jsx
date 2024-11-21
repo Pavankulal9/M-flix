@@ -1,16 +1,11 @@
-import React from 'react'
+import React from "react";
 
-const Loading = ({type}) => {
+const Loading = ({ type = "text" }) => {
   return (
     <div className="loading">
-      {
-        type==='spinner'?
-        <div></div>
-        :
-        <h1>Loading...</h1>
-      }
+      {type === "spinner" ? <div></div> : <h1>Loading...</h1>}
     </div>
-  )
-}
+  );
+};
 
-export default Loading
+export default Loading;

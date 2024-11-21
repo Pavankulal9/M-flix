@@ -1,17 +1,12 @@
-import React, { useContext, useEffect } from "react";
 import { fetchMovieList } from "../../utils/fetchApi";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import MoviesList from "../../components/MoviesList";
-import Loading from "../Loading";
-import Error from "../Error";
-import { MovieContext } from "../../context/MovieContext";
 import Movie from "../../components/Movie";
-import { useInView } from "react-intersection-observer";
+import withLoadingAndError from "../../HOC/withLoadingAndError";
+import useSelectMovie from "../../hooks/useSelectMovie";
+import useFetchInView from "../../hooks/useFetchInView";
 
 const Upcoming = () => {
-  const { selectedMovie, setSelectedMovie } = useContext(MovieContext);
-  const { ref: loadMoreRef, inView } = useInView();
-
   const {
     data: Upcoming,
     status,
@@ -28,33 +23,42 @@ const Upcoming = () => {
     },
   });
 
-  useEffect(() => {
-    if (inView) {
-      fetchNextPage();
-    }
-  }, [inView, fetchNextPage]);
+  const { selectedMovie } = useSelectMovie();
+  const { ref: loadMoreRef } = useFetchInView(fetchNextPage);
 
-  useEffect(() => {
-    return () => {
-      setSelectedMovie("");
-    };
-  }, [setSelectedMovie]);
+  const isLoading = status === "pending";
+  const isError = status === "error";
 
-  if (status === "pending") {
-    return <Loading type={"text"} />;
-  } else if (status === "error") {
-    return <Error />;
-  } else
-    return (
-      <div className="movie-categorie">
-        {selectedMovie.length > 0 && <Movie id={selectedMovie} />}
-        <MoviesList
-          MoviesListArray={Upcoming}
-          loadMoreRef={loadMoreRef}
-          title={"Upcoming Movies"}
-          hasNextPage={hasNextPage}
-        />
-      </div>
-    );
+  return (
+    <UpcomingCompWithHandler
+      isError={isError}
+      isLoading={isLoading}
+      selectedMovie={selectedMovie}
+      Upcoming={Upcoming}
+      loadMoreRef={loadMoreRef}
+      hasNextPage={hasNextPage}
+    />
+  );
 };
+
+const UpcomingComponent = ({
+  selectedMovie,
+  Upcoming,
+  loadMoreRef,
+  hasNextPage,
+}) => {
+  return (
+    <div className="movie-categorie">
+      {selectedMovie.length > 0 && <Movie id={selectedMovie} />}
+      <MoviesList
+        MoviesListArray={Upcoming}
+        loadMoreRef={loadMoreRef}
+        title={"Upcoming Movies"}
+        hasNextPage={hasNextPage}
+      />
+    </div>
+  );
+};
+
+const UpcomingCompWithHandler = withLoadingAndError(UpcomingComponent);
 export default Upcoming;
