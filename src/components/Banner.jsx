@@ -26,7 +26,7 @@ const Banner = ({ Popular }) => {
   }, [backgroundImage]);
 
   const handleKnowMore = (id) => {
-    setSelectedMovie(id);
+    setSelectedMovie(`${id}`);
   };
 
   const handleLoadImage = () => {
