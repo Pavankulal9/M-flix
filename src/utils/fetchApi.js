@@ -1,15 +1,15 @@
 import axios from 'axios';
 
 const Axios= axios.create({
-    baseURL:"https://api.themoviedb.org/3",
+    baseURL: process.env.REACT_APP_URL,
 }); 
 
 export const Img_URL = "https://image.tmdb.org/t/p/original/";
 
 export const fetchMovie=async(category)=>{
     try {
-        const {data}= await Axios.get(`/movie/${category}?api_key=${process.env.REACT_APP_API_KEY}`);
-        return data.results;
+        const {data}= await Axios.get(`/movie/category/${category}`);
+        return data.data;
     } catch (error) {
         console.log(error.message);
     }
@@ -17,8 +17,8 @@ export const fetchMovie=async(category)=>{
 
 export const fetchMovieDetails=async(id)=>{
     try {
-        const {data}= await Axios.get(`/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}`);
-        return data;
+        const {data}= await Axios.get(`/movie/${id}`);
+        return data.data;
     } catch (error) {
         console.log(error.message);
     }
@@ -26,8 +26,8 @@ export const fetchMovieDetails=async(id)=>{
 
 export const fetchMovieList=async({category,pageParam})=>{
     try {
-        const {data}= await Axios.get(`/movie/${category}?api_key=${process.env.REACT_APP_API_KEY}&page=${pageParam}`);
-        return data.results;
+        const {data}= await Axios.get(`/movie/category/${category}?page=${pageParam}`);
+        return data.data;
     } catch (error) {
         console.log(error.message);
     }
@@ -35,24 +35,25 @@ export const fetchMovieList=async({category,pageParam})=>{
 
 export const fetchSearch=async(searchTerm,page)=>{
     try {
-        const abort = new AbortController();
-         if(abort.signal){
-            abort.abort();
-         }
-        const {data}= await Axios.get(`/search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${searchTerm}&page=${page}`,{
-            signal: abort.signal,
-        });
-        return data.results;
+        // const abort = new AbortController();
+        //  if(abort.signal){
+        //     abort.abort();
+        //  }
+
+        const {data} = await Axios.get(`/movie/search/${searchTerm}?page=${page}`);
+
+        return data.data;
     } catch (error) {
-        console.log(error.message);
+        console.error(error.message);
+        throw new Error("Failed to fetch search results");
     }
 };
 
 
 export const fetchGenresList=async()=>{
     try {
-        const {data}= await Axios.get(`/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}`);
-        return data.genres;
+        const {data}= await Axios.get(`/movie/genre/list`);
+        return data.data;
     } catch (error) {
         console.log(error.message);
     }
@@ -60,8 +61,8 @@ export const fetchGenresList=async()=>{
 
 export const fetchGenres=async({genreId,pageParam})=>{
     try {
-        const {data}= await Axios.get(`/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&with_genres=${genreId}&page=${pageParam}`);
-        return data.results;
+        const {data}= await Axios.get(`/movie/discover/${genreId}?page=${pageParam}`);
+        return data.data;
     } catch (error) {
         console.log(error.message);
     }

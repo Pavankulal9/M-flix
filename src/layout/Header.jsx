@@ -1,45 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
 import { FaHamburger } from "react-icons/fa";
 import { FiX } from "react-icons/fi";
 import useSelectMovie from "../hooks/useSelectMovie";
 import useSearchTerm from "../hooks/useSearchTerm";
+import { useDebounce } from "../hooks/useDebounce";
 
 const Header = () => {
   const { setSelectedMovie } = useSelectMovie();
   const { setSearchTerm } = useSearchTerm();
   const [showNavBar, setShowNavBar] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const debounceData = useDebounce(searchText, 2000);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const debounce = (cb, delay) => {
-    let timer;
-    if (timer) return clearTimeout(timer);
-    return function (...arg) {
-      timer = setTimeout(() => {
-        cb(...arg);
-      }, delay);
-    };
-  };
+  useEffect(() => {
+    setSearchTerm(debounceData);
+  }, [debounceData, setSearchTerm]);
 
   const handlerSearch = (e) => {
     let text = e.target.value;
     setSearchText(text);
-    if (text.trim() === "") return;
-    const searchDebounce = debounce(() => {
-      setSearchTerm(text);
-    }, 1500);
-    searchDebounce();
   };
 
   const handleNavigate = () => {
     if (location.pathname !== "/search") {
       navigate("/search");
       setSearchTerm("");
+      setSelectedMovie("");
     }
-    setSelectedMovie("");
   };
 
   return (
@@ -103,7 +94,7 @@ const Header = () => {
         <input
           type="text"
           placeholder="Search..."
-          onChange={(e) => handlerSearch(e)}
+          onChange={handlerSearch}
           onFocus={handleNavigate}
           value={searchText}
         />

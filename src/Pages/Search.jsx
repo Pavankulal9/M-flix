@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Img_URL, fetchSearch } from "../utils/fetchApi";
 import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
@@ -14,28 +14,34 @@ const Search = () => {
   const { searchTerm } = useSearchTerm();
   const [page, setPage] = useState(1);
 
-  useEffect(() => {
-    setPage(1);
-  }, [searchTerm]);
-
   const {
     isFetching,
-    isError,
+    isError: searchIsError,
     data: searchItem,
   } = useQuery({
     queryKey: [`${searchTerm}-${page}`],
     queryFn: () => fetchSearch(`${searchTerm}`, `${page}`),
+    enabled: searchTerm.length === 0 ? false : true,
   });
 
-  const nextPageHandler = () => {
-    setPage((prev) => prev + 1);
-  };
+  useEffect(() => {
+    setPage(1);
+    return () => {
+      setSelectedMovie("");
+    };
+  }, [searchTerm, setSelectedMovie]);
 
-  const prevPageHandler = () => {
+  const nextPageHandler = useCallback(() => {
+    setPage((prev) => prev + 1);
+  }, []);
+
+  const prevPageHandler = useCallback(() => {
     if (page > 1) {
       setPage((prev) => prev - 1);
     }
-  };
+  }, [page]);
+
+  const isError = searchTerm.length > 0 && searchIsError;
 
   return (
     <SearchCompWithHandler
@@ -64,9 +70,10 @@ const SearchComponent = ({
   return (
     <section className="search">
       {searchTerm.length === 0 && <h2>Please enter the movie name</h2>}
-      {searchItem === undefined ? (
+      {searchItem === undefined && searchTerm.length > 0 && (
         <Error error={"Sever error Please try later"} />
-      ) : (
+      )}
+      {searchItem !== undefined && (
         <>
           {searchItem[0] == null && searchTerm.length > 0 && page === 1 ? (
             <h2>Sorry '{searchTerm}' Movie Not Found!!!</h2>
