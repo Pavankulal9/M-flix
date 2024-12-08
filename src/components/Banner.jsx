@@ -67,7 +67,6 @@ const Banner = ({ Popular }) => {
           Popular.map((movie, i) => (
             <>
               <img
-                key={movie.id}
                 className={i !== backgroundImage ? "hidden" : ""}
                 src={`${Img_URL}${movie.backdrop_path}`}
                 alt={"Background_image"}

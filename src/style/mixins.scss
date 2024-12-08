@@ -1,8 +1,12 @@
 @mixin loadingScree($w:100%,$h:100%){
     background-color:$primary-background-color;
     @include height-width-Setter($w,$h);
-    @include flexBox();
+    @include flexBox(center,center,0rem,column);
     color: $primary-text-color;
+    > p{
+        color: red;
+        text-align: center;
+    }
     > div{
      @include height-width-Setter(50px,50px);
      border-radius: 50%;

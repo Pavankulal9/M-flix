@@ -46,6 +46,9 @@ const Home = () => {
   return (
     <HomeCompWithHandler
       isLoading={isLoading}
+      customText={
+        "(Note: Initially it may take 1 minute or more to fetch data. Please wait )"
+      }
       isError={isError}
       Popular={Popular}
       selectedMovie={selectedMovie}

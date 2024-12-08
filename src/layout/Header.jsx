@@ -27,8 +27,17 @@ const Header = () => {
 
   const handleNavigate = () => {
     if (location.pathname !== "/search") {
-      navigate("/search");
       setSearchTerm("");
+      setSearchText("");
+      navigate("/search");
+      setSelectedMovie("");
+    }
+  };
+
+  const handleOnClick = () => {
+    if (location.pathname !== "/search") {
+      setSearchTerm("");
+      setSearchText("");
       setSelectedMovie("");
     }
   };
@@ -95,7 +104,8 @@ const Header = () => {
           type="text"
           placeholder="Search..."
           onChange={handlerSearch}
-          onFocus={handleNavigate}
+          onClick={handleNavigate}
+          onBlur={handleOnClick}
           value={searchText}
         />
         <button type="submit">
