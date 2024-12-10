@@ -8,25 +8,21 @@ const Banner = ({ Popular }) => {
   const [backgroundImage, setBackgroundImage] = useState(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (backgroundImage >= 9) {
-        setBackgroundImage(0);
-      } else {
-        setBackgroundImage((prev) => prev + 1);
-      }
+    const interval = setInterval(() => {
+      setBackgroundImage((prev) => (prev >= 9 ? 0 : prev + 1));
     }, 5000);
 
-    if (backgroundImage === null) {
-      clearTimeout(timer);
-    }
-
-    return () => {
-      clearTimeout(timer);
-    };
+    return () => clearInterval(interval); // Cleanup interval on unmount
   }, [backgroundImage]);
 
-  const handleKnowMore = (id) => {
-    setSelectedMovie(`${id}`);
+  const handleKnowMore = (e) => {
+    if (e.target.className === "know-more-button") {
+      const movieId = e.target.dataset.id;
+      setSelectedMovie(movieId);
+    } else if (e.target.id === "carousel-button") {
+      const movieIndex = Number(e.target.dataset.index);
+      setBackgroundImage(movieIndex);
+    }
   };
 
   const handleLoadImage = () => {
@@ -51,55 +47,72 @@ const Banner = ({ Popular }) => {
 
   return (
     <div className="banner_box">
-      <div className="banner">
+      <div className="banner" onClick={(e) => handleKnowMore(e)}>
         {backgroundImage === null && (
           <>
-            <img
-              className={"hidden"}
-              src={`${Img_URL}${Popular[0].backdrop_path}`}
-              alt={"Background_image"}
-              onLoad={handleLoadImage}
-            />
+            <div className="hide_banner_details">
+              <img
+                src={`${Img_URL}${Popular[0].backdrop_path}`}
+                alt={"Background_image"}
+                onLoad={handleLoadImage}
+              />
+            </div>
             <Loading type="spinner" />
           </>
         )}
         {backgroundImage >= 0 &&
           Popular.map((movie, i) => (
-            <>
+            <div
+              className={
+                i !== backgroundImage
+                  ? "hide_banner_details"
+                  : "show_banner_details"
+              }
+              key={movie.id}
+            >
               <img
-                className={i !== backgroundImage ? "hidden" : ""}
                 src={`${Img_URL}${movie.backdrop_path}`}
                 alt={"Background_image"}
               />
-              <div
-                className="prev-banner"
-                onClick={() => previousBanner()}
-              ></div>
-              <div className="next-banner" onClick={() => nextBanner()}></div>
-              <div
-                className={
-                  i !== backgroundImage
-                    ? "hide-movie-details"
-                    : "show-movie-details"
-                }
-              >
+
+              <div className={"movie-details"}>
                 <h1>{movie.title}</h1>
                 <p>{movie.overview}</p>
                 <div>
-                  <button onClick={() => handleKnowMore(movie.id)}>
+                  <button className="know-more-button" data-id={movie.id}>
                     Know More
                   </button>
                 </div>
               </div>
-            </>
+            </div>
           ))}
         <div className="carousel">
-          {Popular.map((movie, i) => (
-            <div
-              key={movie.id}
-              className={i === backgroundImage ? "selected" : "unSelected"}
-            ></div>
-          ))}
+          {backgroundImage !== null && (
+            <>
+              <button className="prev-banner" onClick={previousBanner}>
+                {" "}
+                &#10092;
+              </button>
+
+              <div>
+                {Popular.map((movie, i) => (
+                  <div
+                    key={movie.id}
+                    data-index={i}
+                    className={
+                      i === backgroundImage ? "selected" : "unSelected"
+                    }
+                    id="carousel-button"
+                  ></div>
+                ))}
+              </div>
+
+              <button className="next-banner" onClick={nextBanner}>
+                {" "}
+                &#10093;
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

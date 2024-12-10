@@ -30,10 +30,11 @@
         > .card {
             @include height-width-Setter(200px,300px,1rem);
             border-radius: 5px;
-               > img {
+            > img {
                 @include height-width-Setter();
                 object-fit: cover;
                 border-radius: 5px;
+                border: 2px solid rgb(179, 179, 179);
               }
               > .loading{
                 @include loadingScree();

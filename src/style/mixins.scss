@@ -1,5 +1,5 @@
 @mixin loadingScree($w:100%,$h:100%){
-    background-color:$primary-background-color;
+    background-color: $primary-background-color;
     @include height-width-Setter($w,$h);
     @include flexBox(center,center,0rem,column);
     color: $primary-text-color;
