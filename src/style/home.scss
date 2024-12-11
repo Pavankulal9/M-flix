@@ -1,5 +1,5 @@
 .home {
-  @include height-width-Setter();
+  @include height-width-Setter(100%,90%);
   overflow-x: auto;
   background-color: $primary-background-color;
   @include scrollBar();
@@ -97,7 +97,7 @@
   }
 
   > .MoviesListRow {
-    @include height-width-Setter(100%, 45%, 0.5rem);
+    @include height-width-Setter(100%, 53%, 0.5rem);
       @include flexBox(none, flex-start, 0.8rem,column);
     > h1 {
       color: $primary-text-color;
