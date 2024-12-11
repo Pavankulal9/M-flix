@@ -1,10 +1,10 @@
 .home {
-  @include height-width-Setter(100%, 90%);
+  @include height-width-Setter();
   overflow-x: auto;
   background-color: $primary-background-color;
   @include scrollBar();
   > .banner_box {
-    @include height-width-Setter(100%, 90%);
+    @include height-width-Setter(100%, 85%);
     // @include flexBox();
     > .banner {
       @include height-width-Setter();
@@ -97,25 +97,27 @@
   }
 
   > .MoviesListRow {
-    @include height-width-Setter(100%, auto, 0.5rem);
-    display: grid;
-    place-items: left;
+    @include height-width-Setter(100%, 45%, 0.5rem);
+      @include flexBox(none, flex-start, 0.8rem,column);
     > h1 {
       color: $primary-text-color;
       margin-bottom: 1rem;
     }
-    > div {
-      @include height-width-Setter(100%, 260px);
+    > .card-box {
+      @include height-width-Setter(100%, 100%);
       @include flexBox(none, flex-start, 0.8rem);
       overflow-x: auto;
+      overflow-y: hidden; 
       @include scrollBar();
       > .card {
         @include height-width-Setter();
+        border: 2px solid gray;
         border-radius: 5px;
-        border: 1px solid rgb(179, 179, 179);
         > img {
-          @include height-width-Setter(170px, 258px);
+          @include height-width-Setter(170px,
+            100%);
           border-radius: 5px;
+          object-fit: cover;
         }
         > .loading {
           @include loadingScree(170px, 100%);
@@ -158,6 +160,7 @@
           }
         }
         > .carousel {
+          padding: 0 0.3rem 0.3rem 0.3rem;
           button{
             @include height-width-Setter(20%, 100%);
           }

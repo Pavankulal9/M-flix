@@ -15,7 +15,7 @@ const MoviesList = ({
   return (
     <div className={ClassName}>
       <h1>{title}</h1>
-      <div>
+      <div className={"card-box"}>
         {MoviesListArray.pages
           ? MoviesListArray.pages.map((movie) =>
               movie.map(
