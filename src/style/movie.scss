@@ -2,7 +2,7 @@
     position: absolute;
     top: 7%;
     z-index: 9999;
-    @include height-width-Setter(100%,87%);
+    @include height-width-Setter(100%,96%);
     backdrop-filter: blur(0.5rem);
     @include flexBox();
     >.movie-box{
