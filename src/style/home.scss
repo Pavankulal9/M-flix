@@ -38,7 +38,7 @@
             font-size: 2rem;
           }
           > p {
-            @include height-width-Setter(100%, auto);
+            @include height-width-Setter(75%, auto);
             color: $secondary-text-color;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -132,12 +132,6 @@
     > .banner_box {
       > .banner {
         > .show_banner_details {
-          > .prev-banner {
-            @include height-width-Setter(20%, 97%);
-          }
-          > .next-banner {
-            @include height-width-Setter(20%, 97%);
-          }
           > .movie-details {
             > h1 {
               font-size: 1.5rem;

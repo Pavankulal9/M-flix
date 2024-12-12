@@ -20,6 +20,8 @@ const Movie = ({ id }) => {
     queryFn: () => fetchMovieDetails(`${id}`),
   });
 
+  console.log(Movie);
+
   return (
     <section className="movie" onClick={() => setSelectedMovie("")}>
       {isLoading ? (
