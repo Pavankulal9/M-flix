@@ -20,7 +20,7 @@
     }
     > .card-box {
         @include height-width-Setter(80%,auto);
-        @include flexBox(none,center);
+        @include flexBox(none,center,1rem);
         flex-wrap: wrap;
         margin: auto;
          > p{
@@ -28,13 +28,14 @@
            font-size: 1.5rem;
         }
         > .card {
-            @include height-width-Setter(200px,300px,1rem);
+            @include height-width-Setter(200px,300px);
             border-radius: 5px;
+            border: 2px solid rgb(179, 179, 179);
             > img {
                 @include height-width-Setter();
                 object-fit: cover;
                 border-radius: 5px;
-                border: 2px solid rgb(179, 179, 179);
+                
               }
               > .loading{
                 @include loadingScree();
