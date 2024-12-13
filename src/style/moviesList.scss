@@ -18,7 +18,7 @@
         text-transform: uppercase;
         @include ButtonHover($button-hover-background-color);
     }
-    > div {
+    > .card-box {
         @include height-width-Setter(80%,auto);
         @include flexBox(none,center);
         flex-wrap: wrap;
@@ -51,10 +51,10 @@
         > h1{
             font-size: 1.5em;
         }
-        div{
+        > .card-box{
          width: 95%;
          > .card{
-            @include height-width-Setter(170px,250px);
+            @include height-width-Setter(190px,270px);
          }
         }
     }
@@ -65,7 +65,7 @@
         > h1{
             font-size: 1.5rem;
         }
-        div{
+        > .card-box{
          width: 95%;
          > .card{
             @include height-width-Setter(140px,210px);

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { BiSearch } from "react-icons/bi";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { FaHamburger } from "react-icons/fa";
-import { FiX } from "react-icons/fi";
 import useSelectMovie from "../hooks/useSelectMovie";
 import useSearchTerm from "../hooks/useSearchTerm";
 import { useDebounce } from "../hooks/useDebounce";
@@ -17,7 +15,9 @@ const Header = () => {
   const location = useLocation();
 
   useEffect(() => {
-    setSearchTerm(debounceData);
+    if (debounceData.length > 0) {
+      setSearchTerm(debounceData);
+    }
   }, [debounceData, setSearchTerm]);
 
   const handlerSearch = (e) => {
@@ -44,54 +44,74 @@ const Header = () => {
 
   return (
     <div className="header">
-      <ul className={showNavBar ? "NavBar-Open" : "NavBar-Close"}>
-        <li>
-          <FiX onClick={() => setShowNavBar(false)} />
-        </li>
-        <Link
-          to={"/"}
-          onClick={() => setShowNavBar(false)}
-          about="Home_Page_URL"
-        >
-          Home
-        </Link>
-        <Link
-          to={"/popular"}
-          onClick={() => setShowNavBar(false)}
-          about="Popular_Movies_Page_URL"
-        >
-          Popular
-        </Link>
-        <Link
-          to={"/toprated"}
-          onClick={() => setShowNavBar(false)}
-          about="Toprated_Movies_Page_URL"
-        >
-          Toprated
-        </Link>
-        <Link
-          to={"/genres"}
-          onClick={() => setShowNavBar(false)}
-          about="Genres_Page_URL"
-        >
-          Genres
-        </Link>
-        <Link
-          to={"/upcoming"}
-          onClick={() => setShowNavBar(false)}
-          about="Upcoming_Movies_Page_URL"
-        >
-          Upcoming
-        </Link>
-        <Link
-          to={"/favorites"}
-          onClick={() => setShowNavBar(false)}
-          about="MyFavorites_Movies_Page_URL"
-        >
-          {" "}
-          My Favorites
-        </Link>
-      </ul>
+      <div
+        className={showNavBar ? "NavBar-box-open" : "NavBar-box-close"}
+        onClick={() => setShowNavBar(false)}
+      >
+        <ul className={"NavList"}>
+          <NavLink
+            style={({ isActive }) => ({
+              backgroundColor: isActive ? "red" : "transparent",
+            })}
+            to={"/"}
+            onClick={() => setShowNavBar(false)}
+            about="Home_Page_URL"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            style={({ isActive }) => ({
+              backgroundColor: isActive ? "red" : "transparent",
+            })}
+            to={"/popular"}
+            onClick={() => setShowNavBar(false)}
+            about="Popular_Movies_Page_URL"
+          >
+            Popular
+          </NavLink>
+          <NavLink
+            style={({ isActive }) => ({
+              backgroundColor: isActive ? "red" : "transparent",
+            })}
+            to={"/toprated"}
+            onClick={() => setShowNavBar(false)}
+            about="Toprated_Movies_Page_URL"
+          >
+            Top-Rated
+          </NavLink>
+          <NavLink
+            style={({ isActive }) => ({
+              backgroundColor: isActive ? "red" : "transparent",
+            })}
+            to={"/genres"}
+            onClick={() => setShowNavBar(false)}
+            about="Genres_Page_URL"
+          >
+            Genres
+          </NavLink>
+          <NavLink
+            style={({ isActive }) => ({
+              backgroundColor: isActive ? "red" : "transparent",
+            })}
+            to={"/upcoming"}
+            onClick={() => setShowNavBar(false)}
+            about="Upcoming_Movies_Page_URL"
+          >
+            Upcoming
+          </NavLink>
+          <NavLink
+            style={({ isActive }) => ({
+              backgroundColor: isActive ? "red" : "transparent",
+            })}
+            to={"/favorites"}
+            onClick={() => setShowNavBar(false)}
+            about="MyFavorites_Movies_Page_URL"
+          >
+            {" "}
+            My Favorites
+          </NavLink>
+        </ul>
+      </div>
       <div>
         <FaHamburger onClick={() => setShowNavBar(true)} />
         <Link to={"/"} about="Home_Page_URL">
@@ -108,9 +128,6 @@ const Header = () => {
           onBlur={handleOnClick}
           value={searchText}
         />
-        <button type="submit">
-          <BiSearch />
-        </button>
       </div>
     </div>
   );

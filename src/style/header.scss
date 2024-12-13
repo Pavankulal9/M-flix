@@ -25,27 +25,17 @@
             outline: none;
             padding:.5rem 1rem;
         }
-        > button {
-            background-color: transparent;
-            border:none;
-            > svg {
-                font-size:1.2rem
-            }
-            &:hover {
-                color:orange;
-            }
-        }
     }   
 }
 
-
-.NavBar-Open {
+.NavBar-box-open{
    @include NavBar(0);
 }
 
-.NavBar-Close {
-   @include NavBar();
+.NavBar-box-close {
+    @include NavBar();
 }
+
 
 
 @media only screen and (max-width: 500px) {

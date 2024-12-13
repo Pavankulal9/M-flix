@@ -7,14 +7,14 @@
     overflow-x: auto;
     @include scrollBar();
     > .searched-movie {
-        @include height-width-Setter(95%,450px,0.5rem 1rem);
+        @include height-width-Setter(95%,46%,0.5rem);
         @include flexBox(none,none,1rem);
         margin: .5rem auto;
         transition: .5s;
         border-radius: 15px;
         >.movie-poster{
-            @include height-width-Setter(15%,290px);
-            @include flexBox();
+            @include height-width-Setter(190px,270px);
+            border: 2px solid rgb(179, 179, 179);
             > img {
                 @include height-width-Setter();
                 object-fit: cover;
@@ -60,17 +60,15 @@
 
 @media only screen and (max-width: 600px) {
     .search > .searched-movie {
-        @include height-width-Setter(80%,450px);
-        flex-direction:column;
+        @include height-width-Setter(250px,50%);
         align-items: center;
+        > .movie-poster{
+            @include height-width-Setter(250px,100%);
+        }
+        > aside {
+                display:none;
+        }
     }
 
-    .search > .searched-movie > .movie-poster{
-        @include height-width-Setter(100%,100%);
-    }
-
-    .search > .searched-movie > aside {
-            display:none;
-    }
 }
 

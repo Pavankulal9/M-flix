@@ -12,7 +12,7 @@ const Banner = ({ Popular }) => {
       setBackgroundImage((prev) => (prev >= 9 ? 0 : prev + 1));
     }, 5000);
 
-    return () => clearInterval(interval); // Cleanup interval on unmount
+    return () => clearInterval(interval);
   }, [backgroundImage]);
 
   const handleKnowMore = (e) => {
@@ -57,7 +57,9 @@ const Banner = ({ Popular }) => {
                 onLoad={handleLoadImage}
               />
             </div>
-            <Loading type="spinner" />
+            <div className="show_banner_details">
+              <Loading type="spinner" />
+            </div>
           </>
         )}
         {backgroundImage >= 0 &&

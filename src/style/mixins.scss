@@ -1,97 +1,93 @@
-@mixin loadingScree($w:100%,$h:100%){
-    background-color: $primary-background-color;
-    @include height-width-Setter($w,$h);
-    @include flexBox(center,center,0rem,column);
-    color: $primary-text-color;
-    > p{
-        color: red;
-        text-align: center;
+@mixin loadingScree($w: 100%, $h: 100%) {
+  background-color: $primary-background-color;
+  @include height-width-Setter($w, $h);
+  @include flexBox(center, center, 0rem, column);
+  color: $primary-text-color;
+  > p {
+    color: red;
+    text-align: center;
+  }
+  > div {
+    @include height-width-Setter(50px, 50px);
+    border-radius: 50%;
+    border: 5px solid rgb(80, 80, 80);
+    border-top: 5px solid $primary-text-color;
+    animation: spinner 2s linear infinite;
+  }
+  @keyframes spinner {
+    0% {
+      transform: rotate(0deg);
     }
-    > div{
-     @include height-width-Setter(50px,50px);
-     border-radius: 50%;
-     border: 5px solid rgb(80, 80, 80);
-     border-top:  5px solid $primary-text-color;
-     animation: spinner 2s linear infinite ;
+    100% {
+      transform: rotate(360deg);
     }
-    @keyframes spinner {
-     0%{
-         transform: rotate(0deg);
-     }
-     100%{
-         transform: rotate(360deg);
-     }
-    }
+  }
 }
 
-@mixin height-width-Setter($w:100%,$h:100%,$p:none){
+@mixin height-width-Setter($w: 100%, $h: 100%, $p: none) {
   width: $w;
   height: $h;
   padding: $p;
 }
 
-@mixin flexBox($al:center,$jc:center,$gp:0rem,$fd:row){
-   display: flex;
-   align-items:$al;
-   justify-content:$jc;
-   gap: $gp;
-   flex-direction: $fd;
+@mixin flexBox($al: center, $jc: center, $gp: 0rem, $fd: row) {
+  display: flex;
+  align-items: $al;
+  justify-content: $jc;
+  gap: $gp;
+  flex-direction: $fd;
 }
 
-@mixin scrollBar(){
-    &::-webkit-scrollbar{
-        display: none;
-    }
+@mixin scrollBar() {
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-@mixin NavBar($trs:-100%){
-    @include height-width-Setter(300px,100vh,0 0.5rem);
-    position: absolute;
-    z-index: 99999;
-    top: 0;
-    left: 0;
+@mixin NavBar($trs: -100%) {
+  @include height-width-Setter();
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background: transparent;
+  transform: translateX($trs);
+  transition: 0.5s;
+  > .NavList {
+    @include height-width-Setter(300px, 100vh,0.5rem);
     background-color: $primary-background-color;
-    @include flexBox(center,none,0rem,column);
-    -webkit-transform: translateX($trs);
-    transform: translateX($trs);
-    transition: .5s;
+    @include flexBox(center, none, 0rem, column);
     > a {
-        width: 100%;
-        color: $primary-text-color;
-        margin-top: 1rem;
-        padding:.5rem 1rem;
-        border-radius: 20px;
-        &:hover{
-            background-color: red;
-        }
-    }  
-    > li {
-        width: 100%;
-       text-align: right;
-        > svg {
-            color: $primary-text-color;
-            font-size: 1.3rem;
-            margin: .5rem;
-            &:hover{
-                color: $button-background-color;
-            }
-        }
-    } 
-}
-
-@mixin ButtonSytles($br:none,$bg:none,$p:none,$c:none,$fs:none,$m:none){
-    border: none;
-    outline: none;
-    margin: $m;
-    padding:$p;
-    background: $bg;
-    color: $c;
-    border-radius: $br;
-    font-size: $fs;
-}
-
-@mixin ButtonHover($bg:none){
-    &:hover{
-        background-color: $bg;
+      width: 100%;
+      color: $primary-text-color;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      background-color: none;
     }
+  }
+}
+
+@mixin ButtonSytles(
+  $br: none,
+  $bg: none,
+  $p: none,
+  $c: none,
+  $fs: none,
+  $m: none
+) {
+  border: none;
+  outline: none;
+  margin: $m;
+  padding: $p;
+  background: $bg;
+  color: $c;
+  border-radius: $br;
+  font-size: $fs;
+}
+
+@mixin ButtonHover($bg: none) {
+  &:hover {
+    background-color: $bg;
+  }
 }
