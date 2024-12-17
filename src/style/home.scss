@@ -12,16 +12,17 @@
       @include flexBox();
       > .hide_banner_details {
         display: none;
+        border-radius: 20px;
       }
       > .show_banner_details {
         @include height-width-Setter(98%, 95%);
         color: $primary-text-color;
         border: 2px solid rgb(179, 179, 179);
         border-radius: 20px;
+        overflow: hidden;
         > img {
           @include height-width-Setter();
           object-fit: cover;
-          border-radius: 20px;
         }
         > .movie-details {
           position: absolute;

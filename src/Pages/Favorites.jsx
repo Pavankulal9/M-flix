@@ -16,7 +16,7 @@ const Favorites = () => {
     <div className={"movie-categorie"}>
       <div className="MoviesList">
         <h1>My Favorite List</h1>
-        <div>
+        <div className="card-box">
           {FavoritesMovies && FavoritesMovies.length > 0 ? (
             FavoritesMovies.map(
               (item, index) =>
