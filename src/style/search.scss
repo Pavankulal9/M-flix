@@ -60,10 +60,10 @@
 
 @media only screen and (max-width: 600px) {
     .search > .searched-movie {
-        @include height-width-Setter(250px,50%);
-        align-items: center;
+        @include height-width-Setter(100%,100%);
+        @include flexBox(center,center, 1rem);
         > .movie-poster{
-            @include height-width-Setter(250px,100%);
+            @include height-width-Setter(230px,340px);
         }
         > aside {
                 display:none;

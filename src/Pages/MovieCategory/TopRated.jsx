@@ -48,7 +48,7 @@ const TopRatedComponent = ({
   hasNextPage,
 }) => {
   return (
-    <div className="movie-categorie">
+    <div className="movie-categories">
       {selectedMovie.length > 0 && <Movie id={selectedMovie} />}
       <MoviesList
         MoviesListArray={TopRated}
