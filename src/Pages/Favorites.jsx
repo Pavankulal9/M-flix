@@ -13,7 +13,7 @@ const Favorites = () => {
   }, []);
 
   return (
-    <div className={"movie-categorie"}>
+    <div className={"movie-categories"}>
       <div className="MoviesList">
         <h1>My Favorite List</h1>
         <div className="card-box">
