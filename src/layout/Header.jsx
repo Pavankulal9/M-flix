@@ -1,42 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { FaHamburger } from "react-icons/fa";
 import useSelectMovie from "../hooks/useSelectMovie";
-import useSearchTerm from "../hooks/useSearchTerm";
-import { useDebounce } from "../hooks/useDebounce";
+import { debounce } from "../utils/helper";
 
 const Header = () => {
   const { setSelectedMovie } = useSelectMovie();
-  const { setSearchTerm } = useSearchTerm();
   const [showNavBar, setShowNavBar] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const debounceData = useDebounce(searchText, 2000);
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    if (debounceData.length > 0) {
-      setSearchTerm(debounceData);
-    }
-  }, [debounceData, setSearchTerm]);
+  const debouncedNavigate = useMemo(
+    () =>
+      debounce((text) => {
+        if (!text) return;
+        navigate(`/search?q=${encodeURIComponent(text)}&page=1`);
+        setSelectedMovie("");
+      }, 1500),
+    [navigate, setSelectedMovie],
+  );
 
   const handlerSearch = (e) => {
-    let text = e.target.value;
+    let text = String(e.target.value).trimStart();
     setSearchText(text);
+    debouncedNavigate(text);
   };
 
-  const handleNavigate = () => {
+  const handleOnClick = () => {
     if (location.pathname !== "/search") {
-      setSearchTerm("");
       setSearchText("");
       navigate("/search");
       setSelectedMovie("");
     }
   };
 
-  const handleOnClick = () => {
+  const handleOnBlur = () => {
     if (location.pathname !== "/search") {
-      setSearchTerm("");
       setSearchText("");
       setSelectedMovie("");
     }
@@ -124,8 +124,8 @@ const Header = () => {
           type="text"
           placeholder="Search..."
           onChange={handlerSearch}
-          onClick={handleNavigate}
-          onBlur={handleOnClick}
+          onClick={handleOnClick}
+          onBlur={handleOnBlur}
           value={searchText}
         />
       </div>

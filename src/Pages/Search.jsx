@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Img_URL, fetchSearch } from "../utils/fetchApi";
 import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
@@ -7,12 +8,13 @@ import PreLoadingImage from "../components/PreLoadingImage";
 import Movie from "../components/Movie";
 import withLoadingAndError from "../HOC/withLoadingAndError";
 import useSelectMovie from "../hooks/useSelectMovie";
-import useSearchTerm from "../hooks/useSearchTerm";
 
 const Search = () => {
   const { selectedMovie, setSelectedMovie } = useSelectMovie();
-  const { searchTerm } = useSearchTerm();
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const searchTerm = searchParams.get("q") ?? "";
+  const page = Number(searchParams.get("page") ?? 1);
 
   const {
     isFetching,
@@ -24,22 +26,25 @@ const Search = () => {
     enabled: searchTerm.length === 0 ? false : true,
   });
 
-  useEffect(() => {
-    setPage(1);
-    return () => {
-      setSelectedMovie("");
-    };
-  }, [searchTerm, setSelectedMovie]);
-
   const nextPageHandler = useCallback(() => {
-    setPage((prev) => prev + 1);
-  }, []);
+    const nextPage = page + 1;
+    setSearchParams((previous) => {
+      const next = new URLSearchParams(previous);
+      next.set("page", String(nextPage));
+      return next;
+    });
+  }, [setSearchParams, page]);
 
   const prevPageHandler = useCallback(() => {
-    if (page > 1) {
-      setPage((prev) => prev - 1);
+    if (page < 1) {
+      return;
     }
-  }, [page]);
+    const previousPage = page - 1;
+    setSearchParams((previous) => {
+      const next = new URLSearchParams(previous);
+      next.set("page", String(previousPage));
+    });
+  }, [setSearchParams, page]);
 
   const isError = searchTerm.length > 0 && searchIsError;
 
@@ -97,7 +102,7 @@ const SearchComponent = ({
                       <p>{item.overview}</p>
                     </aside>
                   </div>
-                )
+                ),
             )
           )}
           {searchItem[0] == null && page > 1 && (
