@@ -5,6 +5,7 @@ import PreLoadingImage from "./PreLoadingImage";
 import AddRemoveButton from "./AddRemoveButton";
 import useSelectMovie from "../hooks/useSelectMovie";
 import withLoadingAndError from "../HOC/withLoadingAndError";
+import WatchLaterButton from "./WatchLaterButton";
 
 const Movie = ({ id }) => {
   const { setSelectedMovie } = useSelectMovie();
@@ -82,6 +83,7 @@ const MovieComponent = ({ Movie }) => {
             </div>
             <div className="button">
               <AddRemoveButton movie={Movie} />
+              <WatchLaterButton movie={Movie}/>
             </div>
           </div>
         </div>

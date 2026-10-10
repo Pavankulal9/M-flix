@@ -11,6 +11,7 @@ const TopRated = lazy(() => import("./Pages/MovieCategory/TopRated"));
 const Upcoming = lazy(() => import("./Pages/MovieCategory/Upcoming"));
 const Genres = lazy(() => import("./Pages/MovieCategory/Genres"));
 const Favorites = lazy(() => import("./Pages/Favorites"));
+const WatchLater = lazy(() => import("./Pages/WatchLater"));
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
             <Route path={"/upcoming"} element={<Upcoming />} />
             <Route path={"/genres"} element={<Genres />} />
             <Route path={"/favorites"} element={<Favorites />} />
+             <Route path={"/watchLater"} element={<WatchLater />} />
           </Routes>
         </Suspense>
         <Footer />

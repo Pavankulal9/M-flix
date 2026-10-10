@@ -64,7 +64,7 @@
                     > .button{
                         padding: 0;
                         > button {
-                            @include ButtonSytles(10px,$button-background-color,0.5rem,$primary-text-color,1rem,0.5rem);
+                            @include ButtonStyles(10px,$button-background-color,0.5rem,$primary-text-color,1rem,0.5rem);
                             @include ButtonHover($button-hover-background-color);
                             text-transform: capitalize;
                         }

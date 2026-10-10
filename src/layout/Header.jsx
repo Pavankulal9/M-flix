@@ -49,6 +49,7 @@ const Header = () => {
         onClick={() => setShowNavBar(false)}
       >
         <ul className={"NavList"}>
+          <h2 style={{color:"white"}}>M-Flix</h2>
           <NavLink
             style={({ isActive }) => ({
               backgroundColor: isActive ? "red" : "transparent",
@@ -109,6 +110,17 @@ const Header = () => {
           >
             {" "}
             My Favorites
+          </NavLink>
+           <NavLink
+            style={({ isActive }) => ({
+              backgroundColor: isActive ? "red" : "transparent",
+            })}
+            to={"/watchLater"}
+            onClick={() => setShowNavBar(false)}
+            about="MyFavorites_Movies_Page_URL"
+          >
+            {" "}
+            Watch Later
           </NavLink>
         </ul>
       </div>

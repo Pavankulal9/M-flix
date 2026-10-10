@@ -50,7 +50,7 @@
           > div {
             padding: 1rem 0;
             > button {
-              @include ButtonSytles(
+              @include ButtonStyles(
                 10px,
                 $button-background-color,
                 0.5rem 2rem,
@@ -71,7 +71,7 @@
         @include flexBox(center, space-around, 0.5rem);
          button {
           @include height-width-Setter(50px,50px);
-             @include ButtonSytles(50px,
+             @include ButtonStyles(50px,
              rgba(255, 255, 255, 0.403),
              0.8rem,
              $primary-text-color,
@@ -144,7 +144,7 @@
             }
             > div {
               > button {
-                @include ButtonSytles(
+                @include ButtonStyles(
                   10px,
                   $button-background-color,
                   0.5rem 1rem,

@@ -14,7 +14,7 @@
         margin-bottom:1rem
     }
     > button {
-        @include ButtonSytles(10px,$button-background-color,0.8rem 5rem, $primary-text-color);
+        @include ButtonStyles(10px,$button-background-color,0.8rem 5rem, $primary-text-color);
         text-transform: uppercase;
         @include ButtonHover($button-hover-background-color);
     }
@@ -47,7 +47,7 @@
 
 
 
-@media(max-width:515px){
+@media(max-width:535px){
     .MoviesList{
         > h1{
             font-size: 1.5em;
@@ -61,7 +61,21 @@
     }
 }
 
-@media(max-width:365px){
+@media(max-width:435px){
+    .MoviesList{
+        > h1{
+            font-size: 1.5rem;
+        }
+        > .card-box{
+         width: 95%;
+         > .card{
+            @include height-width-Setter(160px,230px);
+         }
+        }
+    }
+}
+
+@media(max-width:390px){
     .MoviesList{
         > h1{
             font-size: 1.5rem;

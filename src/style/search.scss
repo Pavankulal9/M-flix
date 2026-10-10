@@ -45,7 +45,7 @@
     .button {
         @include flexBox(none,none,1rem);
         > button {
-            @include ButtonSytles(5px,$button-background-color,0.5rem,$primary-text-color,0.8rem,1rem);
+            @include ButtonStyles(5px,$button-background-color,0.5rem,$primary-text-color,0.8rem,1rem);
             @include flexBox(center,none);
             > svg {
                 font-size:1rem

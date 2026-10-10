@@ -12,7 +12,7 @@
             @include scrollBar();
             > button {
                 width:100%;
-                @include ButtonSytles(30px,none,0.7rem 1rem,$primary-text-color,none,0.6rem 0);
+                @include ButtonStyles(30px,none,0.7rem 1rem,$primary-text-color,none,0.6rem 0);
                 font-weight: 500;
                 &:hover {
                     background-color: $secondary-background-color;
