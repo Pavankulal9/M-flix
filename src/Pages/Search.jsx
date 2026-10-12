@@ -80,7 +80,7 @@ const SearchComponent = ({
       )}
       {searchItem !== undefined && (
         <>
-          {searchItem[0] == null && searchTerm.length > 0 && page === 1 ? (
+          {!searchItem[0] && searchTerm.length > 0 && page === 1 ? (
             <h2>Sorry '{searchTerm}' Movie Not Found!!!</h2>
           ) : (
             searchItem.map(

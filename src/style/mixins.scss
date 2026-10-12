@@ -54,7 +54,7 @@
   transform: translateX($trs);
   transition: 0.5s;
   > .NavList {
-    @include height-width-Setter(300px, 100vh,0.5rem);
+    @include height-width-Setter(300px,100%,0.5rem);
     background-color: $primary-background-color;
     @include flexBox(center, none, 0rem, column);
     > a {
