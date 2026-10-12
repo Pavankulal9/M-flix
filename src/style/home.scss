@@ -5,9 +5,11 @@
   @include scrollBar();
   > .banner_box {
     @include height-width-Setter(100%, 85%);
-    // @include flexBox();
+   @include flexBox();
     > .banner {
       @include height-width-Setter();
+       max-width: 1100px;
+       max-height: 1000px;
       position: relative;
       @include flexBox();
       > .hide_banner_details {
