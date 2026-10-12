@@ -16,7 +16,7 @@ const Banner = ({ Popular }) => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [backgroundImage, isBackgroundImagePause]);
+  }, [isBackgroundImagePause]);
 
   const handleKnowMore = (e) => {
     if (e.target.className === "know-more-button") {
