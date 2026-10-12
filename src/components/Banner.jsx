@@ -6,14 +6,17 @@ import Loading from "../Pages/Loading";
 const Banner = ({ Popular }) => {
   const { setSelectedMovie } = useSelectMovie();
   const [backgroundImage, setBackgroundImage] = useState(null);
+  const [isBackgroundImagePause, setIsBackgroundImagePause] = useState(false);
 
   useEffect(() => {
+    if (isBackgroundImagePause) return;
+
     const interval = setInterval(() => {
       setBackgroundImage((prev) => (prev >= 9 ? 0 : prev + 1));
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [backgroundImage]);
+  }, [backgroundImage, isBackgroundImagePause]);
 
   const handleKnowMore = (e) => {
     if (e.target.className === "know-more-button") {
@@ -45,9 +48,22 @@ const Banner = ({ Popular }) => {
     }
   };
 
+  function handleOnMouseEnter() {
+    setIsBackgroundImagePause(true);
+  }
+
+  function handleOnMouseLeave() {
+    setIsBackgroundImagePause(false);
+  }
+
   return (
     <div className="banner_box">
-      <div className="banner" onClick={(e) => handleKnowMore(e)}>
+      <div
+        className="banner"
+        onClick={(e) => handleKnowMore(e)}
+        onMouseEnter={handleOnMouseEnter}
+        onMouseLeave={handleOnMouseLeave}
+      >
         {backgroundImage === null && (
           <>
             <div className="hide_banner_details">

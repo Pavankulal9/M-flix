@@ -28,13 +28,13 @@
         }
         > .movie-details {
           position: absolute;
-          @include height-width-Setter(100%, 90%);
+          @include height-width-Setter(100%, 86%);
           top: 0;
-          bottom: 2%;
+          bottom: 1%;
           left: 0;
-          background: rgba(15, 15, 15, 0.335);
           @include flexBox(flex-start, flex-end, 0.5rem, column);
           padding: 0 2rem;
+          background: rgba(15, 15, 15, 0.335);
           > h1 {
             @include height-width-Setter(70%, auto);
             color: $primary-text-color;
@@ -46,11 +46,11 @@
             text-overflow: ellipsis;
             overflow: hidden;
             display: -webkit-box;
-            -webkit-line-clamp: 4;
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
           }
           > div {
-            padding: 1rem 0;
+            padding: 0;
             > button {
               @include ButtonStyles(
                 10px,
@@ -68,17 +68,17 @@
       > .carousel {
         position: absolute;
         bottom: 2%;
+        @include height-width-Setter(100%, 12%);
         background: rgba(15, 15, 15, 0.335);
-        @include height-width-Setter(100%, 8%);
-        @include flexBox(center, space-around, 0.5rem);
+        @include flexBox(center, center, 1rem);
          button {
-          @include height-width-Setter(50px,50px);
-             @include ButtonStyles(50px,
+          @include height-width-Setter(70px,45px);
+           @include flexBox(center, center, 1rem);
+             @include ButtonStyles(15px,
              rgba(255, 255, 255, 0.403),
              0.8rem,
              $primary-text-color,
-             1rem,
-            0 0 1rem 0
+             1rem
              );
              @include ButtonHover($button-hover-background-color);
              font-weight: bold;
@@ -160,7 +160,8 @@
         > .carousel {
           padding: 0 0.3rem 0.3rem 0.3rem;
           button{
-            @include height-width-Setter(20%, 100%);
+            @include height-width-Setter(20%, 80%);
+            border-radius: 20px;
           }
           > .unSelected {
             @include height-width-Setter(8px, 8px);
